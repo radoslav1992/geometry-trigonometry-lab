@@ -13,6 +13,7 @@ A complete static Astro website for visual mathematics. All interactive calculat
 - Eight additional interactive explorations: right triangles, regular polygons, coordinate geometry, circle sectors, angle conversion, trig graphs, transformations, and a draggable triangle discovery sandbox.
 - Eight shape-atlas pages, each with a dedicated calculator, properties, formulas, worked example, common mistake, and related shapes.
 - Searchable catalog of all 17 tools and collections.
+- A homepage FAQ and tailored questions beneath all 12 explorers/calculators and eight shape calculators. Answers are prerendered and native disclosure controls work without JavaScript.
 - Printable worksheets with 8, 12, or 20 questions and an optional answer key.
 
 ## Development

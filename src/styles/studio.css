@@ -300,3 +300,25 @@ to{transform:scale(1);opacity:1}
 .worksheet-questions{grid-template-columns:1fr 1fr}
 .worksheet-options{font-size:10pt}
 }
+
+/* Native disclosures keep every answer readable without JavaScript. */
+.faq-section{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(0,1.5fr);gap:44px;margin-top:58px;padding-top:38px;border-top:1px solid #e6e0d6}
+.faq-intro h2{font-size:28px;margin:15px 0 12px;line-height:1.25}
+.faq-intro p{color:var(--muted);font-size:16px;margin:0}
+.faq-list{display:grid;gap:12px;align-content:start;min-width:0}
+.faq-item{border:1px solid var(--line);border-radius:16px;background:#fffefa;overflow:hidden}
+.faq-item[open]{border-color:#a7c9c9;background:#fff}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 22px;cursor:pointer;list-style:none;color:var(--ink);font-size:16px;font-weight:700;line-height:1.5;min-height:64px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover{background:#edf7f3}
+.faq-item summary:focus-visible{outline:3px solid var(--orange);outline-offset:-4px;border-radius:14px}
+.faq-indicator{position:relative;flex:0 0 26px;height:26px;background:var(--mint);border-radius:50%;color:var(--green)}
+.faq-indicator::before,.faq-indicator::after{content:'';position:absolute;left:7px;top:12px;width:12px;height:2px;background:currentColor}
+.faq-indicator::after{transform:rotate(90deg)}
+.faq-item[open] .faq-indicator::after{display:none}
+.faq-answer{padding:0 22px 23px}
+.faq-answer p{font-size:16px;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.faq-answer .text-link{display:inline-block;padding-block:5px;line-height:1.5}
+@media(max-width:900px){.faq-section{grid-template-columns:1fr;gap:24px;margin-top:40px}.faq-intro h2{font-size:26px}}
+@media(max-width:480px){.faq-item summary{padding:18px;gap:12px}.faq-answer{padding:0 18px 20px}}
+@media print{.faq-section{display:block;break-before:page}.faq-item{break-inside:avoid;border:0}.faq-item::details-content{display:block}.faq-answer{display:block!important}.faq-indicator{display:none}}
