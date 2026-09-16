@@ -1,0 +1,6 @@
+---
+import Layout from '../../layouts/Layout.astro';import Exploration from '../../components/Exploration.astro';import {explorations} from '../../lib/explorations.mjs';
+export function getStaticPaths(){return explorations.map(tool=>({params:{slug:tool.slug},props:{tool}}));}
+const {tool}=Astro.props;
+---
+<Layout title={tool.title} description={tool.description} section="Tools"><div class="breadcrumb"><a href="/tools/">All tools</a> / {tool.title}</div><div class="intro"><div><div class="eyebrow">{tool.category} · interactive lab</div><h1>{tool.title}</h1><p>{tool.description}</p></div></div><Exploration tool={tool}/><div class="related"><a href={`/learn/${tool.lesson}/`}>Read the concept & worked example ↗</a><a href="/practice/">Practice this topic ↗</a><a href="/worksheets/">Create a worksheet ↗</a></div></Layout>

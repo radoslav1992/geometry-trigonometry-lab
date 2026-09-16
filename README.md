@@ -8,8 +8,12 @@ A complete static Astro website for visual mathematics. All interactive calculat
 - Triangle solver: SSS, SAS, two angles and a side, and SSA including both possible solutions. To-scale diagrams, input validation, area, perimeter, height, worked calculations.
 - Eight shape calculators: rectangle, circle, triangle, trapezoid, sphere, cylinder, cone, and rectangular prism. Formula substitutions and total surface areas.
 - Printable cube, prism, and square-pyramid nets with optional labels and glue tabs, actual millimeter dimensions, SVG download, and browser print/PDF.
-- Eight-question practice rounds drawn from 20 geometry and trigonometry questions, shuffled answers, feedback, explanations, and optional device-local best scores.
-- Eight static formula-reference articles, linked to their relevant tools.
+- Eight-question practice rounds drawn from 100 questions across geometry, trigonometry, coordinates, polygons, and solids. Includes shuffled answers, worked feedback, mistake review, focused retries, and device-local best scores.
+- Sixteen static formula-reference articles and three guided learning paths, linked to their relevant tools.
+- Eight additional interactive explorations: right triangles, regular polygons, coordinate geometry, circle sectors, angle conversion, trig graphs, transformations, and a draggable triangle discovery sandbox.
+- Eight shape-atlas pages, each with a dedicated calculator, properties, formulas, worked example, common mistake, and related shapes.
+- Searchable catalog of all 17 tools and collections.
+- Printable worksheets with 8, 12, or 20 questions and an optional answer key.
 
 ## Development
 

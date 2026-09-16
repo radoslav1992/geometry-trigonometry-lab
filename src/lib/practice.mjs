@@ -21,4 +21,33 @@ export const QUESTIONS=[
  {topic:'trigonometry',q:'In a right triangle, which ratio equals sine of an acute angle?',choices:['Opposite / hypotenuse','Adjacent / hypotenuse','Opposite / adjacent','Hypotenuse / opposite'],answer:0,why:'SOH: Sine = Opposite / Hypotenuse. CAH gives cosine and TOA gives tangent.'},
 ];
 export function shuffle(items){const arr=[...items];for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-export function makeRound(topic='mixed'){return shuffle(QUESTIONS.filter(q=>topic==='mixed'||q.topic===topic)).slice(0,8).map(q=>{const choices=shuffle(q.choices.map((text,i)=>({text,correct:i===q.answer})));return {...q,choices};});}
+export function makeRound(topic='mixed',count=8){if(!['mixed','geometry','trigonometry','coordinates','polygons','solids'].includes(topic))throw new Error('Choose a valid topic.');if(!Number.isInteger(count)||count<1||count>20)throw new Error('Choose 1 to 20 questions.');return shuffle(QUESTIONS.filter(q=>topic==='mixed'||q.topic===topic)).slice(0,count).map(q=>{const choices=shuffle(q.choices.map((text,i)=>({text,correct:i===q.answer})));return {...q,choices};});}
+
+function numericQuestion(topic,q,correct,why,unit=''){
+ const format=n=>Number(n.toFixed(3)).toString()+unit;
+ const values=[correct,correct+1,correct*2,correct/2,correct+3,correct-2,correct+7];
+ const choices=[...new Set(values.map(format))].slice(0,4);
+ QUESTIONS.push({topic,q,choices,answer:0,why});
+}
+for(const [a,b,c] of [[5,12,13],[8,15,17],[7,24,25],[9,12,15],[12,16,20]]){
+ numericQuestion('geometry',`A right triangle has legs ${a} and ${b}. Find its hypotenuse.`,c,`c = √(${a}² + ${b}²) = ${c}.`);
+ numericQuestion('geometry',`Find the area of a triangle with base ${a} and perpendicular height ${b}.`,a*b/2,`Area = ½ × ${a} × ${b} = ${a*b/2}.`,' units²');
+}
+for(const n of [1,2,4,5,7])numericQuestion('trigonometry',`Convert ${n}π/6 radians to degrees.`,n*30,`${n}π/6 × 180/π = ${n*30}°.`,'°');
+for(const [angle,correct] of [[120,'−½'],[135,'−√2/2'],[150,'−√3/2'],[240,'−½'],[300,'½']])QUESTIONS.push({topic:'trigonometry',q:`What is the exact value of cos ${angle}°?`,choices:[correct,...['0','1','−1'].filter(x=>x!==correct)].slice(0,4),answer:0,why:`Use the reference angle and quadrant. At ${angle}°, the x-coordinate on the unit circle is ${correct}.`});
+for(let i=1;i<=5;i++){
+ numericQuestion('coordinates',`Find the distance from (0, 0) to (${3*i}, ${4*i}).`,5*i,`d = √(${3*i}² + ${4*i}²) = ${5*i}.`);
+ numericQuestion('coordinates',`What is the slope through (0, ${i}) and (2, ${i+2*i})?`,i,`Slope = (${i+2*i} − ${i}) / (2 − 0) = ${i}.`);
+ numericQuestion('coordinates',`What is the x-coordinate of the midpoint between (${i}, 2) and (${i+6}, 8)?`,i+3,`Average the x-coordinates: (${i} + ${i+6}) / 2 = ${i+3}. The full midpoint is (${i+3}, 5).`);
+ QUESTIONS.push({topic:'coordinates',q:`Reflect (${i}, −${i+2}) across the x-axis. What is the new point?`,choices:[`(${i}, ${i+2})`,`(−${i}, −${i+2})`,`(−${i}, ${i+2})`,`(${i+2}, ${i})`],answer:0,why:'A reflection across the x-axis keeps x and changes the sign of y.'});
+}
+for(const n of [3,4,5,6,7,8,9,10,12,15]){
+ numericQuestion('polygons',`What is the interior-angle sum of a ${n}-sided convex polygon?`,(n-2)*180,`(n − 2) × 180° = (${n} − 2) × 180° = ${(n-2)*180}°.`,'°');
+ numericQuestion('polygons',`How many diagonals does a ${n}-sided convex polygon have?`,n*(n-3)/2,`n(n − 3)/2 = ${n} × ${n-3} / 2 = ${n*(n-3)/2}.`);
+}
+for(let edge=2;edge<=6;edge++){
+ numericQuestion('solids',`Find the volume of a cube with edge ${edge} cm.`,edge**3,`V = edge³ = ${edge}³ = ${edge**3} cm³.`,' cm³');
+ numericQuestion('solids',`Find the total surface area of a cube with edge ${edge} cm.`,6*edge*edge,`Six square faces give S = 6 × ${edge}² = ${6*edge*edge} cm².`,' cm²');
+ numericQuestion('solids',`A prism measures ${edge} × 3 × 4 cm. What is its volume?`,edge*12,`V = width × height × depth = ${edge} × 3 × 4 = ${edge*12} cm³.`,' cm³');
+ numericQuestion('solids',`A solid is uniformly enlarged by a scale factor of ${edge}. By what factor does its volume grow?`,edge**3,`Each of three dimensions scales by ${edge}, so volume scales by ${edge}³ = ${edge**3}.`,'×');
+}
