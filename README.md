@@ -35,8 +35,8 @@ The production output is `dist/`. JavaScript is delivered only for interactive c
 2. In Cloudflare Pages, connect that repository and select the production branch.
 3. Build command: `npm run build`.
 4. Output directory: `dist`.
-5. Set `NODE_VERSION=22` and `SITE_URL=https://your-domain.example`.
-6. Add the custom domain. Rebuild whenever `SITE_URL` changes so canonical links, robots.txt, and the sitemap agree.
+5. Set `NODE_VERSION=22`. The canonical production domain is `https://geometrylab.net`, configured in `astro.config.mjs`.
+6. Add `geometrylab.net` as the custom domain. If the production domain changes, update `site` in `astro.config.mjs` and rebuild so canonical links, robots.txt, and the sitemap agree.
 
 The `.openai/hosting.json` file identifies the separate preview deployment and is not needed for Cloudflare Pages. No migrations or runtime bindings are required. The current hosted preview may be private; it does not establish public search-engine indexing.
 
