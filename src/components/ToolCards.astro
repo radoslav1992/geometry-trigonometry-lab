@@ -1,0 +1,11 @@
+---
+const tools=[
+{title:'Triangle solver',text:'Three measurements. Every missing side and angle, explained.',icon:'△',href:'/triangle-solver/',color:'',meta:'4 solving modes'},
+{title:'Area & volume',text:'Give a shape its dimensions. See the math take shape.',icon:'▱',href:'/area-calculator/',color:'peach',meta:'8 shapes to explore'},
+{title:'Unit circle',text:'Connect angles, coordinates, and trigonometry in one picture.',icon:'⊙',href:'/unit-circle/',color:'blue',meta:'Exact values + decimals'},
+{title:'Printable shape nets',text:'Take geometry off the screen. Print, fold, and build.',icon:'▧',href:'/printable-nets/',color:'blue',meta:'Cube · prism · pyramid'},
+{title:'Practice studio',text:'Build your intuition with short questions and useful feedback.',icon:'∠',href:'/practice/',color:'',meta:'Geometry + trigonometry'},
+{title:'Field notes',text:'The formulas you need, with examples that make them click.',icon:'ƒ',href:'/learn/',color:'peach',meta:'8 illustrated concepts'},
+];
+---
+<div class="tool-grid">{tools.map(t=><a class="tool-card" href={t.href}><div class="card-top"><span class:list={['tool-icon',t.color]} aria-hidden="true">{t.icon}</span><span class="card-arrow" aria-hidden="true">↗</span></div><h3>{t.title}</h3><p>{t.text}</p><div class="card-meta"><span>{t.meta}</span><span>Free tool</span></div></a>)}</div>

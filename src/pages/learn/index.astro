@@ -1,0 +1,4 @@
+---
+import Layout from '../../layouts/Layout.astro';import {lessons} from '../../lib/lessons.mjs';
+---
+<Layout title="Geometry & Trigonometry Formula Reference" section="Learn" description="Clear explanations of Pythagoras, sine and cosine rules, Heron’s formula, radians, area, perimeter, volume, and surface area, with worked examples."><div class="intro"><div><div class="eyebrow">Field notes</div><h1>Keep the useful ideas close.</h1><p>A compact reference for the formulas behind the tools. No textbook required.</p></div></div><div class="tool-grid">{lessons.map(l=><a class="tool-card" href={`/learn/${l.slug}/`}><div class="card-top"><span class="tool-icon">{l.icon}</span><span class="card-arrow">↗</span></div><h3>{l.title}</h3><p>{l.subtitle}</p><div class="card-meta">Formula · example · common mistake</div></a>)}</div></Layout>

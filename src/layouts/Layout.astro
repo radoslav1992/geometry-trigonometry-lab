@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore' } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site);
+const nav=[['Explore','/'],['Triangle solver','/triangle-solver/'],['Unit circle','/unit-circle/'],['Area & volume','/area-calculator/'],['Printables','/printable-nets/'],['Practice','/practice/']];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{title === 'Geometry & Trigonometry Lab' ? title : `${title} | Geometry Lab`}</title>
+  <meta name="description" content={description}/><link rel="canonical" href={url}/>
+  <meta name="theme-color" content="#103d3b"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={url}/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:title,url:url.href,description,applicationCategory:'EducationalApplication',operatingSystem:'Any',isAccessibleForFree:true,offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}})} />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header"><a href="/" class="brand" aria-label="Geometry Lab home"><img src="/favicon.svg" width="37" height="37" alt=""/><span>geometry<span class="brand-light">lab</span><small>SHAPES. ANGLES. UNDERSTANDING.</small></span></a><nav aria-label="Main navigation">{nav.map(([label,href])=><a href={href} class:list={{active:section===label}} aria-current={section===label?'page':undefined}>{label}</a>)}</nav><a href="/learn/" class="header-learn">Field notes <span aria-hidden="true">↗</span></a></header>
+  <main id="main"><slot/></main>
+  <footer class="site-footer"><a href="/" class="footer-brand">△ geometrylab</a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/about/">About this lab</a></div><span>Free to explore. No account needed.</span></footer>
+</body>
+</html>

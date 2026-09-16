@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {solveTriangle,circleValues,shapeValues,radiansLabel,exactTrig} from '../src/lib/math.mjs';
+import {makeRound} from '../src/lib/practice.mjs';
+const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} ≠ ${b}`);
+test('3-4-5 right triangle has independently known area, height, and angles',()=>{const [t]=solveTriangle('sss',[3,4,5]);close(t.area,6);close(t.C,90);close(t.height,2.4);close(t.perimeter,12)});
+test('equilateral SAS solution',()=>{const [t]=solveTriangle('sas',[8,8,60]);close(t.c,8);close(t.A,60);close(t.area,16*Math.sqrt(3))});
+test('two angles and a side obey the sine rule',()=>{const [t]=solveTriangle('asa',[30,60,10]);close(t.a,5);close(t.b,5*Math.sqrt(3));close(t.C,90)});
+test('SSA returns both geometrically valid triangles',()=>{const ts=solveTriangle('ssa',[7,10,30]);assert.equal(ts.length,2);for(const t of ts){close(t.A,30);close(t.a,7);close(t.b,10);close(t.A+t.B+t.C,180)}assert.notEqual(ts[0].c,ts[1].c)});
+test('SSA returns exactly one solution at the tangent case',()=>{const ts=solveTriangle('ssa',[5,10,30]);assert.equal(ts.length,1);close(ts[0].B,90)});
+test('obtuse SSA can have one solution',()=>{const ts=solveTriangle('ssa',[10,6,120]);assert.equal(ts.length,1);close(ts[0].A,120)});
+test('invalid, degenerate, incomplete, and impossible inputs are rejected',()=>{for(const [mode,v]of [['sss',[1,2,3]],['sss',[1,2,9]],['sss',[0,2,3]],['sss',[NaN,2,3]],['sas',[2,3,180]],['asa',[90,90,5]],['ssa',[2,10,30]],['ssa',[5,10,120]]])assert.throws(()=>solveTriangle(mode,v));assert.throws(()=>shapeValues('circle',[Infinity]))});
+test('triangle invariants across non-degenerate samples',()=>{for(let i=1;i<30;i++){const a=1+i,b=3+i/2,C=10+i*5;const[t]=solveTriangle('sas',[a,b,C]);close(t.C,C);close(t.A+t.B+t.C,180);close(t.area,a*b*Math.sin(C*Math.PI/180)/2)}});
+test('unit circle has exact quadrantal behavior',()=>{close(circleValues(0).cos,1);close(circleValues(180).cos,-1);assert.equal(circleValues(90).tan,null);assert.equal(circleValues(270).tan,null);close(circleValues(360).sin,0);close(circleValues(45).tan,1)});
+test('radians and signs at special angles',()=>{assert.equal(radiansLabel(30),'π/6');assert.equal(radiansLabel(270),'3π/2');assert.equal(radiansLabel(360),'2π');assert.equal(exactTrig(150,'cos'),'−√3/2');assert.equal(exactTrig(240,'tan'),'√3')});
+test('areas, volumes, and total surface areas match known formulas',()=>{close(shapeValues('rectangle',[8,5]).Area,40);close(shapeValues('triangle',[10,6]).Area,30);close(shapeValues('trapezoid',[8,4,3]).Area,18);close(shapeValues('circle',[3]).Area,9*Math.PI);close(shapeValues('sphere',[3]).Volume,36*Math.PI);close(shapeValues('cylinder',[2,5]).Volume,20*Math.PI);close(shapeValues('cone',[3,4])['Surface area'],24*Math.PI);close(shapeValues('cuboid',[2,3,4])['Surface area'],52)});
+test('practice rounds have eight distinct questions and one correct choice each',()=>{for(const topic of ['mixed','geometry','trigonometry']){const r=makeRound(topic);assert.equal(r.length,8);assert.equal(new Set(r.map(q=>q.q)).size,8);for(const q of r){assert.equal(q.choices.filter(c=>c.correct).length,1);if(topic!=='mixed')assert.equal(q.topic,topic)}}});

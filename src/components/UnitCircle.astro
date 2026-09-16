@@ -1,0 +1,36 @@
+---
+const {compact=false}=Astro.props;
+---
+<circle-lab>
+<div class="workbench">
+  <div class="canvas-pane"><div class="canvas-top"><span class="canvas-title"><span aria-hidden="true">◉</span> The unit circle <span class="badge">LIVE EXPLORER</span></span><span class="canvas-hint">Drag the point to explore</span></div>
+  <div class="graph"><svg viewBox="0 0 720 410" role="img" aria-label="Interactive unit circle showing cosine on the x-axis and sine on the y-axis"><g data-drawing></g></svg></div>
+  <div class="graph-caption"><div class="legend"><span>cos θ · x coordinate</span><span class="orange">sin θ · y coordinate</span></div><span>Radius = 1</span></div>
+  </div>
+  <div class="controls"><h3>Make an angle. See the connection.</h3><label class="control-label" for="circle-angle">Angle θ</label><div class="input-with-unit"><input id="circle-angle" data-angle type="number" min="0" max="360" step="0.1" value="45"/><span>deg</span></div><input data-slider type="range" min="0" max="360" step="1" value="45" aria-label="Angle in degrees"/><div class="range-labels"><span>0°</span><span>180°</span><span>360°</span></div><div class="pills" aria-label="Special angles">{[0,30,45,60,90,180,270].map(a=><button class:list={['pill',{selected:a===45}]} data-preset={a} aria-pressed={a===45}>{a}°</button>)}</div><div class="divider"></div><div data-results aria-live="polite"></div><p class="small-note" data-quadrant>Quadrant I · both coordinates are positive.</p><p class="error" data-error role="alert"></p></div>
+</div>
+{!compact&&<div class="explanation"><h2>One circle. Three trigonometric functions.</h2><p>The unit circle has a radius of 1. Starting at the positive x-axis, an angle θ moves counterclockwise around the circle. The point you land on is <strong>(cos θ, sin θ)</strong>. Tangent is the ratio sin θ / cos θ, so it is undefined where cosine is zero.</p><div class="formula" data-identity></div><p>Use the number field or arrow keys on the slider for precise, keyboard-accessible exploration. Special angles show exact values alongside decimal approximations.</p></div>}
+</circle-lab>
+<noscript>Enable JavaScript to move the angle. On the unit circle, x = cos θ and y = sin θ. At 45°, both coordinates are √2/2.</noscript>
+<script>
+import {circleValues,fmt,rad,radiansLabel,exactTrig,clamp} from '../lib/math.mjs';
+class CircleLab extends HTMLElement {
+ connectedCallback(){
+ const svg=this.querySelector('svg')!; const angle=this.querySelector('[data-angle]') as HTMLInputElement; const slider=this.querySelector('[data-slider]') as HTMLInputElement;
+ const render=(a:number)=>{ const {sin,cos,tan}=circleValues(a);const cx=355,cy=205,r=155;const x=cx+cos*r,y=cy-sin*r;const ax=cx+40*Math.cos(rad(a)),ay=cy-40*Math.sin(rad(a));
+ const ticks=[0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330].map(t=>{const tx=cx+Math.cos(rad(t))*r,ty=cy-Math.sin(rad(t))*r;return `<circle cx="${tx}" cy="${ty}" r="3" fill="#98b7aa"/>${t%30===0?`<text x="${cx+Math.cos(rad(t))*(r+23)}" y="${cy-Math.sin(rad(t))*(r+23)+5}" text-anchor="middle">${t}°</text>`:''}`}).join('');
+ const arc=a===360?`<circle cx="${cx}" cy="${cy}" r="40" fill="#f6ddc866" stroke="#d47b47"/>`:`<path d="M ${cx} ${cy} L ${cx+40} ${cy} A 40 40 0 ${a>180?1:0} 0 ${ax} ${ay} Z" fill="#f6ddc899" stroke="#d47b47"/>`;
+ this.querySelector('[data-drawing]')!.innerHTML=`<line x1="70" y1="${cy}" x2="645" y2="${cy}" stroke="#a8bdb5"/><line x1="${cx}" y1="12" x2="${cx}" y2="398" stroke="#a8bdb5"/><text x="650" y="199">x</text><text x="367" y="20">y</text><circle cx="${cx}" cy="${cy}" r="${r}" fill="#cfe7dc22" stroke="#abcbbd" stroke-width="1.5"/>${ticks}<path d="M ${cx} ${cy} L ${x} ${cy} L ${x} ${y} Z" fill="#69b89621"/><line x1="${cx}" y1="${cy}" x2="${x}" y2="${cy}" stroke="#27836e" stroke-width="4"/><line x1="${x}" y1="${cy}" x2="${x}" y2="${y}" stroke="#dc783d" stroke-width="4"/><line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#254f49" stroke-width="2.5"/>${arc}<text x="${cx+57*Math.cos(rad(a/2))}" y="${cy-57*Math.sin(rad(a/2))+5}" text-anchor="middle" class="diagram-label">θ</text><circle cx="${cx}" cy="${cy}" r="4" fill="#254f49"/><circle cx="${x}" cy="${y}" r="16" fill="#126b6018"/><circle cx="${x}" cy="${y}" r="8" fill="#126b60" stroke="#fff" stroke-width="3" style="cursor:grab"/><rect x="24" y="24" width="152" height="56" rx="9" fill="white" stroke="#dce5e1"/><text x="38" y="45" style="font-size:11px;letter-spacing:1px">POINT ON THE CIRCLE</text><text x="38" y="66" style="fill:#174b3f;font-size:17px">(${fmt(cos)}, ${fmt(sin)})</text>`;
+ this.querySelector('[data-results]')!.innerHTML=`<div class="readout-row"><span>Radians</span><strong>${radiansLabel(a)}</strong></div>`+(['cos','sin','tan'] as const).map(type=>{const val=type==='sin'?sin:type==='cos'?cos:tan;const exact=exactTrig(a,type);return `<div class="readout-row"><span>${type} θ</span><div><strong class="${type==='sin'?'orange':''}">${exact??(val===null?'undefined':fmt(val))}</strong>${exact&&val!==null?`<small>≈ ${fmt(val,5)}</small>`:''}</div></div>`}).join('');
+ this.querySelector('[data-quadrant]')!.textContent=a%90===0?'On an axis · one coordinate is zero.':a<90?'Quadrant I · both coordinates are positive.':a<180?'Quadrant II · x is negative, y is positive.':a<270?'Quadrant III · both coordinates are negative.':'Quadrant IV · x is positive, y is negative.';
+ const identity=this.querySelector('[data-identity]');if(identity)identity.textContent=`sin²(${fmt(a)}°) + cos²(${fmt(a)}°) = 1`;
+ this.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach(b=>{b.classList.toggle('selected',Number(b.dataset.preset)===a);b.setAttribute('aria-pressed',String(Number(b.dataset.preset)===a))});
+ };
+ const update=(a:number,source:string)=>{if(!Number.isFinite(a)||a<0||a>360){this.querySelector('[data-error]')!.textContent='Enter an angle between 0° and 360°.';return;}this.querySelector('[data-error]')!.textContent='';if(source!=='number')angle.value=String(a);slider.value=String(a);render(a)};
+ angle.addEventListener('input',()=>update(angle.value===''?NaN:Number(angle.value),'number'));slider.addEventListener('input',()=>update(Number(slider.value),'slider'));this.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach(b=>b.addEventListener('click',()=>update(Number(b.dataset.preset),'preset')));
+ const pointer=(e:PointerEvent)=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const matrix=svg.getScreenCTM();if(!matrix)return;const loc=p.matrixTransform(matrix.inverse());let a=Math.atan2(205-loc.y,loc.x-355)*180/Math.PI;if(a<0)a+=360;update(Math.round(clamp(a,0,360)),'pointer')};let dragging=false;
+ svg.addEventListener('pointerdown',e=>{dragging=true;svg.setPointerCapture(e.pointerId);pointer(e)});svg.addEventListener('pointermove',e=>{if(dragging)pointer(e)});svg.addEventListener('pointerup',()=>dragging=false);svg.addEventListener('pointercancel',()=>dragging=false);render(45);
+ }
+}
+customElements.define('circle-lab',CircleLab);
+</script>
