@@ -1,0 +1,26 @@
+---
+const {kind='triangle',class:className=''}=Astro.props;
+const key=String(kind);
+const solid=/volume|solids|cuboid|nets/.test(key);
+const wave=/trig-graphs|trig-graph|trigonometric/.test(key);
+const circle=/circle|radian|angle-converter/.test(key);
+const paper=/worksheet|practice|learn|formula/.test(key);
+const coordinate=/coordinate|distance|slope|transform|similarity/.test(key);
+const rect=/rectangle|area-calculator|perimeter/.test(key);
+const cone=/cone/.test(key),cylinder=/cylinder/.test(key);
+const polygon=/polygon|shapes/.test(key);
+---
+<svg class:list={['diagram-thumb',className]} viewBox="0 0 240 136" fill="none" aria-hidden="true" focusable="false">
+  <g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  {key==='trapezoid'?<><path d="M84 31H156L194 109H46Z" fill="currentColor" fill-opacity=".08"/><path d="M84 31V109" stroke-dasharray="4 5"/><path d="M84 98H95V109" stroke="var(--orange)"/></>:key==='sphere'?<><circle cx="120" cy="68" r="48" fill="currentColor" fill-opacity=".08"/><ellipse cx="120" cy="68" rx="48" ry="16" stroke-dasharray="4 5"/><ellipse cx="120" cy="68" rx="18" ry="48" opacity=".4"/><path d="M120 68H168" stroke="var(--orange)"/><circle cx="120" cy="68" r="4" fill="currentColor"/></>:wave?<><path d="M24 70H216M120 20V116" opacity=".22"/><path d="M24 68C40 8 56 8 72 68S104 128 120 68S152 8 168 68S200 128 216 68" stroke-width="3.5"/><circle cx="120" cy="68" r="6" fill="var(--sun)"/></>:
+  cylinder?<><path d="M76 38V98C76 118 164 118 164 98V38" fill="currentColor" fill-opacity=".08"/><ellipse cx="120" cy="38" rx="44" ry="15"/><path d="M76 98C76 78 164 78 164 98" stroke-dasharray="4 5"/><path d="M120 38H164" stroke="var(--orange)"/></>:
+  cone?<><path d="M120 18L65 105C65 125 175 125 175 105L120 18Z" fill="currentColor" fill-opacity=".08"/><path d="M65 105C65 85 175 85 175 105M120 18V105" stroke-dasharray="4 5"/><path d="M120 105H175" stroke="var(--orange)"/></>:
+  solid?<><path d="M77 42L143 22L180 52V106L114 126L77 96Z" fill="currentColor" fill-opacity=".08"/><path d="M77 42L114 72L180 52M114 72V126"/><path d="M77 96L143 76L180 106M143 22V76" stroke-dasharray="4 5" opacity=".5"/><circle cx="114" cy="72" r="5" fill="var(--sun)"/></>:
+  circle?<><path d="M35 68H205M120 10V126" opacity=".2"/><circle cx="120" cy="68" r="46" fill="currentColor" fill-opacity=".05"/><path d="M120 68H152.53V35.47Z" fill="var(--sun)" fill-opacity=".35"/><path d="M120 68L152.53 35.47"/><path d="M152.53 68V35.47" stroke="var(--orange)" stroke-width="3"/><circle cx="152.53" cy="35.47" r="6" fill="currentColor" stroke="white"/>{/sphere/.test(key)&&<ellipse cx="120" cy="68" rx="46" ry="15" stroke-dasharray="4 4"/>}</>:
+  paper?<><rect x="78" y="14" width="86" height="108" rx="7" fill="white"/><path d="M94 36H147M94 48H128M112 72H147M112 96H140" opacity=".4"/><path d="M92 70L97 75L104 64M92 94L97 99L104 88" stroke-width="3"/><circle cx="169" cy="101" r="18" fill="var(--sun)" stroke="none"/><path d="M161 101L167 107L178 95" stroke="var(--ink)"/></>:
+  coordinate?<><path d="M35 107H210M62 120V14" opacity=".3"/><path d="M77 91L113 30L137 91Z" stroke-dasharray="4 5" opacity=".4"/><path d="M132 102L168 41L192 102Z" fill="currentColor" fill-opacity=".1"/><path d="M108 60H153M147 54L153 60L147 66" stroke="var(--orange)"/>{[[132,102],[168,41],[192,102]].map(([cx,cy])=><circle cx={cx} cy={cy} r="4" fill="currentColor"/>)}</>:
+  rect?<><rect x="58" y="33" width="124" height="72" rx="1" fill="currentColor" fill-opacity=".08"/><path d="M58 94H69V105M58 119H182M44 33V105" opacity=".6"/><path d="M54 115L58 119L54 123M186 115L182 119L186 123"/><path d="M99 33V105M141 33V105M58 69H182" opacity=".2"/></>:
+  polygon?<><path d="M120 15L168 43L168 97L120 125L72 97L72 43Z" fill="currentColor" fill-opacity=".08"/><path d="M120 15L120 125M72 43L168 97M72 97L168 43" opacity=".3"/><path d="M120 70L168 70" stroke="var(--orange)" stroke-width="3"/><circle cx="120" cy="70" r="4" fill="currentColor"/></>:
+  <><path d="M48 110L113 21L194 110Z" fill="currentColor" fill-opacity=".08"/><path d="M113 21V110" stroke-dasharray="4 5" opacity=".4"/><path d="M113 99H124V110M66 110Q66 98 58 96" stroke="var(--orange)"/>{[[48,110],[113,21],[194,110]].map(([cx,cy])=><circle cx={cx} cy={cy} r="5" fill="currentColor" stroke="white"/>)}</>}
+  </g>
+</svg>

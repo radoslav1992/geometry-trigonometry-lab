@@ -42,7 +42,7 @@ The `.openai/hosting.json` file identifies the separate preview deployment and i
 
 ## Design and content
 
-Graph-paper workspaces, forest green typography, teal measurements, and orange angles. Responsive desktop/mobile layouts, labeled controls, visible focus indicators, reduced-motion support, and live calculation feedback.
+Warm ivory surfaces, navy typography, teal controls, and yellow/orange accents. A live homepage experiment sits beside a compact introduction; tool and shape cards use geometric SVG previews. Color-coded calculator results, lettered practice answers, explanatory feedback, and a completion ring make progress easier to follow. Responsive desktop/mobile layouts, labeled controls, visible focus indicators, reduced-motion support, and live calculation feedback.
 
 Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. No analytics or advertising scripts are installed. Calculator inputs remain on-device. The About page explains calculation rounding, local storage, and external font requests.
 
@@ -51,7 +51,9 @@ Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. No analyt
 - `src/lib/math.mjs`: independently tested math functions.
 - `src/components`: Astro markup and progressively enhanced custom elements.
 - `src/pages`: prerendered routes and reference pages.
-- `src/styles/global.css`: shared responsive design and A4 print styles.
+- `src/styles/global.css`: shared layout primitives and A4 print styles.
+- `src/styles/studio.css`: the shared visual theme, responsive layouts, and practice states.
+- `src/components/DiagramThumb.astro`: reusable geometric previews for tools, shapes, and lessons.
 - `tests/math.test.mjs`: calculation regression tests.
 
 For printables, use A4 paper at 100% scale, disable browser headers/footers, and verify the 20 mm reference line. The pyramid input is face slant height, not vertical height.
