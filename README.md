@@ -45,7 +45,7 @@ The `.openai/hosting.json` file identifies the separate preview deployment and i
 
 Warm ivory surfaces, navy typography, teal controls, and yellow/orange accents. A live homepage experiment sits beside a compact introduction; tool and shape cards use geometric SVG previews. Color-coded calculator results, lettered practice answers, explanatory feedback, and a completion ring make progress easier to follow. Responsive desktop/mobile layouts, labeled controls, visible focus indicators, reduced-motion support, and live calculation feedback.
 
-Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. No analytics or advertising scripts are installed. Calculator inputs remain on-device. The About page explains calculation rounding, local storage, and external font requests.
+Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. Google Analytics (G-9CCD0H600F) measures site usage through the shared page layout. No advertising scripts are installed. Calculator inputs remain on-device. The About page explains calculation rounding, local storage, and external font requests.
 
 ## Source structure
 
