@@ -29,6 +29,6 @@ const nav=[['Explore','/'],['Tools','/tools/'],['Shapes','/shapes/'],['Practice'
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header"><a href="/" class="brand" aria-label="Geometry Lab home"><img src="/favicon.svg" width="37" height="37" alt=""/><span>geometry<span class="brand-light">lab</span><small>A PLACE FOR THINGS TO CLICK.</small></span></a><nav aria-label="Main navigation">{nav.map(([label,href])=><a href={href} class:list={{active:activeSection===label}} aria-current={activeSection===label?'page':undefined}>{label}</a>)}</nav><a href="/worksheets/" class="header-learn">Worksheets <span aria-hidden="true">↗</span></a></header>
   <main id="main"><slot/></main>
-  <footer class="site-footer"><a href="/" class="footer-brand">geometry<span class="brand-light">lab</span></a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/about/">About this lab</a></div><span>Free to explore. No account needed.</span></footer>
+  <footer class="site-footer"><a href="/" class="footer-brand">geometry<span class="brand-light">lab</span></a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/about/">About this lab</a><a href="mailto:info@geometrylab.net">info@geometrylab.net</a></div><span>Free to explore. No account needed.</span></footer>
 </body>
 </html>
