@@ -29,7 +29,7 @@ const apps = learningApps.filter(app => app.id !== currentApp && app.url);
   .collection-kicker{display:block;color:var(--collection-accent);font-size:.75rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
   .collection-heading h2{font-size:clamp(1.8rem,3vw,2.5rem);color:var(--collection-ink);line-height:1.15;margin:0 0 14px;letter-spacing:-.035em}
   .collection-heading p{font-size:1rem;line-height:1.65;color:var(--collection-muted);margin:0}
-  .collection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px}
+  .collection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px}
   .collection-card{min-width:0;display:flex;flex-direction:column;border:1px solid var(--collection-line);border-radius:20px;background:var(--collection-surface);overflow:hidden;color:var(--collection-ink);text-decoration:none;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
   .collection-card:hover{transform:translateY(-4px);border-color:var(--collection-accent);box-shadow:0 8px 20px #0000000b}
   .collection-card:focus-visible{outline:3px solid var(--collection-accent);outline-offset:5px}

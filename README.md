@@ -7,11 +7,13 @@ A complete static Astro website for visual mathematics. All interactive calculat
 - Interactive unit circle: pointer dragging, keyboard-accessible angle slider, exact special-angle values, degree/radian display, sine/cosine/tangent, quadrant explanations.
 - Triangle solver: SSS, SAS, two angles and a side, and SSA including both possible solutions. To-scale diagrams, input validation, area, perimeter, height, worked calculations.
 - Eight shape calculators: rectangle, circle, triangle, trapezoid, sphere, cylinder, cone, and rectangular prism. Formula substitutions and total surface areas.
-- Printable cube, prism, and square-pyramid nets with optional labels and glue tabs, actual millimeter dimensions, SVG download, and browser print/PDF.
+- Composite shape area calculator on the area page: add rectangles, triangles, trapezoids, and circle parts, and subtract holes or cut-outs, with the working shown.
+- Printable cube, prism, and square-pyramid nets with optional labels and glue tabs, actual millimeter dimensions, SVG download, and browser print/PDF. A prerendered gallery links ready-made SVG files at `/nets/cube-net.svg`, `/nets/rectangular-prism-net.svg`, and `/nets/square-pyramid-net.svg`.
+- A printable unit circle chart (`/unit-circle-chart.svg`) and an exact-value table with sine, cosine, and tangent for all 16 special angles.
 - Eight-question practice rounds drawn from 100 questions across geometry, trigonometry, coordinates, polygons, and solids. Includes shuffled answers, worked feedback, mistake review, focused retries, and device-local best scores.
-- Sixteen static formula-reference articles and three guided learning paths, linked to their relevant tools.
+- Sixteen formula guides and three guided learning paths. Each guide opens with a direct answer and the formula, lists every variant and variable, embeds the matching calculator, and adds worked examples, a derivation where useful, common mistakes, and an FAQ. The transformations guide and tool share a coordinate-rules table.
 - Eight additional interactive explorations: right triangles, regular polygons, coordinate geometry, circle sectors, angle conversion, trig graphs, transformations, and a draggable triangle discovery sandbox.
-- Eight shape-atlas pages, each with a dedicated calculator, properties, formulas, worked example, common mistake, and related shapes.
+- Eight shape-atlas pages, each opening with faces/edges/vertices (or sides/angles), a properties table, and a formula table, then a dedicated calculator, worked example, common mistake, related shapes, and FAQ.
 - Searchable catalog of all 17 tools and collections.
 - A homepage FAQ and tailored questions beneath all 12 explorers/calculators and eight shape calculators. Answers are prerendered and native disclosure controls work without JavaScript.
 - Printable worksheets with 8, 12, or 20 questions and an optional answer key.
@@ -47,6 +49,10 @@ Warm ivory surfaces, navy typography, teal controls, and yellow/orange accents. 
 
 Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. Google Analytics (G-9CCD0H600F) measures site usage through the shared page layout. No advertising scripts are installed. Calculator inputs remain on-device. The About page explains calculation rounding, local storage, and external font requests.
 
+## Search metadata
+
+Every page has a canonical URL on `https://geometrylab.net`, a search-focused title and description, and JSON-LD: `WebApplication` for tools and shape pages, `Article`/`LearningResource` for formula guides, `CollectionPage` for hubs, and `WebSite` on the homepage. `Breadcrumbs.astro` renders the visible trail with matching `BreadcrumbList` data, and `Faq.astro` emits `FAQPage` data for the questions shown on the same page. Lesson titles and descriptions live in `src/lib/lessons.mjs`, shape copy in `src/lib/shape-facts.mjs`, and explorer copy in `toolSeo` in `src/lib/explorations.mjs`; `tests/content.test.mjs` keeps them within snippet length and unique.
+
 ## Source structure
 
 - `src/lib/math.mjs`: independently tested math functions.
@@ -55,7 +61,9 @@ Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. Google An
 - `src/styles/global.css`: shared layout primitives and A4 print styles.
 - `src/styles/studio.css`: the shared visual theme, responsive layouts, and practice states.
 - `src/components/DiagramThumb.astro`: reusable geometric previews for tools, shapes, and lessons.
+- `src/lib/nets.mjs`: printable net generator shared by the live tool, the prerendered preview, and the SVG downloads.
 - `tests/math.test.mjs`: calculation regression tests.
+- `tests/content.test.mjs`: worked-example answers, transformation rules, unit circle values, nets, composite areas, and search metadata.
 
 For printables, use A4 paper at 100% scale, disable browser headers/footers, and verify the 20 mm reference line. The pyramid input is face slant height, not vertical height.
 

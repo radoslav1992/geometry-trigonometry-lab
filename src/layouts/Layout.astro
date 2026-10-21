@@ -1,20 +1,34 @@
 ---
 import '../styles/global.css';
 import '../styles/studio.css';
-const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore' } = Astro.props;
+const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore', schemaType='WebApplication', headline=title, noindex=false } = Astro.props;
 const activeSection = ['Triangle solver','Unit circle','Area & volume'].includes(section)?'Tools':section;
 const url = new URL(Astro.url.pathname, Astro.site);
 const nav=[['Explore','/'],['Tools','/tools/'],['Shapes','/shapes/'],['Practice','/practice/'],['Printables','/printable-nets/'],['Learn','/learn/']];
+const brand='Geometry Lab';
+// Append the brand only while the whole tag stays within typical search-snippet width.
+const pageTitle=title==='Geometry & Trigonometry Lab'||title.includes(brand)||title.length+brand.length+3>68?title:`${title} | ${brand}`;
+const home=new URL('/',Astro.site).href;
+const org={'@type':'Organization',name:brand,url:home,email:'info@geometrylab.net'};
+const schema=schemaType==='Article'
+  ?{'@context':'https://schema.org','@type':['Article','LearningResource'],headline,name:headline,description,url:url.href,mainEntityOfPage:url.href,inLanguage:'en',isAccessibleForFree:true,learningResourceType:'Lesson',educationalLevel:'Middle school, high school',author:org,publisher:org}
+  :schemaType==='CollectionPage'
+    ?{'@context':'https://schema.org','@type':'CollectionPage',name:headline,description,url:url.href,inLanguage:'en',isAccessibleForFree:true,publisher:org}
+    :{'@context':'https://schema.org','@type':'WebApplication',name:headline,url:url.href,description,applicationCategory:'EducationalApplication',operatingSystem:'Any',browserRequirements:'Requires JavaScript',isAccessibleForFree:true,inLanguage:'en',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'},publisher:org};
+const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alternateName:'Geometry & Trigonometry Lab',url:home,description,inLanguage:'en',publisher:org};
 ---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>{title === 'Geometry & Trigonometry Lab' ? title : `${title} | Geometry Lab`}</title>
+  <title>{pageTitle}</title>
   <meta name="description" content={description}/><link rel="canonical" href={url}/>
-  <meta name="theme-color" content="#fffaf1"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={url}/>
+  <meta name="robots" content={noindex?'noindex,follow':'index,follow,max-image-preview:large'}/>
+  <meta name="theme-color" content="#fffaf1"/><meta property="og:site_name" content={brand}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content={schemaType==='Article'?'article':'website'}/><meta property="og:url" content={url}/><meta property="og:locale" content="en_US"/>
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-  <script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:title,url:url.href,description,applicationCategory:'EducationalApplication',operatingSystem:'Any',isAccessibleForFree:true,offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}})} />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  {Astro.url.pathname==='/'&&<script type="application/ld+json" set:html={JSON.stringify(website)} />}
   <!-- Google tag (gtag.js) -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-9CCD0H600F"></script>
   <script is:inline>

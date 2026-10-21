@@ -64,3 +64,20 @@ export function exactTrig(angle, type) {
   const table={0:['0','1','0'],30:['½','√3/2','√3/3'],45:['√2/2','√2/2','1'],60:['√3/2','½','√3'],90:['1','0','undefined'],120:['√3/2','−½','−√3'],135:['√2/2','−√2/2','−1'],150:['½','−√3/2','−√3/3'],180:['0','−1','0'],210:['−½','−√3/2','√3/3'],225:['−√2/2','−√2/2','1'],240:['−√3/2','−½','√3'],270:['−1','0','undefined'],300:['−√3/2','½','−√3'],315:['−√2/2','√2/2','−1'],330:['−½','√3/2','−√3/3']};
   return table[a]?.[['sin','cos','tan'].indexOf(type)]??null;
 }
+// Parts for composite figures: add the pieces, subtract any holes or cut-outs.
+export const COMPOSITE_PARTS={
+ rectangle:{title:'Rectangle',fields:['Width','Height'],defaults:[4,3],formula:d=>`${fmt(d[0])} × ${fmt(d[1])}`,area:([w,h])=>w*h},
+ triangle:{title:'Triangle',fields:['Base','Height'],defaults:[6,4],formula:d=>`½ × ${fmt(d[0])} × ${fmt(d[1])}`,area:([b,h])=>b*h/2},
+ circle:{title:'Circle',fields:['Radius'],defaults:[2],formula:d=>`π × ${fmt(d[0])}²`,area:([r])=>Math.PI*r*r},
+ semicircle:{title:'Semicircle',fields:['Radius'],defaults:[3],formula:d=>`½ × π × ${fmt(d[0])}²`,area:([r])=>Math.PI*r*r/2},
+ quarter:{title:'Quarter circle',fields:['Radius'],defaults:[3],formula:d=>`¼ × π × ${fmt(d[0])}²`,area:([r])=>Math.PI*r*r/4},
+ trapezoid:{title:'Trapezoid',fields:['Parallel side a','Parallel side b','Height'],defaults:[8,5,4],formula:d=>`½ × (${fmt(d[0])} + ${fmt(d[1])}) × ${fmt(d[2])}`,area:([a,b,h])=>(a+b)*h/2},
+};
+export function compositeArea(parts){
+ if(!parts.length)throw new Error('Add at least one part.');
+ const rows=parts.map(({op,shape,values})=>{const part=COMPOSITE_PARTS[shape];if(!part)throw new Error('Choose a shape for every part.');if(values.length!==part.fields.length)throw new Error('Fill in every dimension.');positive(values);return{op:op==='subtract'?'subtract':'add',title:part.title,formula:part.formula(values),area:part.area(values)};});
+ if(rows[0].op==='subtract')throw new Error('Start with a part to add, then subtract any holes or cut-outs.');
+ const total=rows.reduce((sum,r)=>sum+(r.op==='add'?r.area:-r.area),0);
+ if(total<=1e-9)throw new Error('The removed parts are as large as the shape. Check the dimensions.');
+ return{rows,total};
+}

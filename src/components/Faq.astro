@@ -2,6 +2,8 @@
 interface Item { question: string; answer: string; href?: string; label?: string; }
 interface Props { items: Item[]; title?: string; }
 const { items, title = 'Frequently asked questions' } = Astro.props;
+// FAQPage data mirrors the visible questions on the same page.
+const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
 ---
 <section class="faq-section" aria-labelledby="faq-heading">
   <div class="faq-intro">
@@ -21,3 +23,4 @@ const { items, title = 'Frequently asked questions' } = Astro.props;
     ))}
   </div>
 </section>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,7 @@
+---
+import {transformationRules} from '../lib/explorations.mjs';
+import {fmt} from '../lib/math.mjs';
+const {heading='Transformation rules on the coordinate plane'}=Astro.props;
+const point=([x,y])=>`(${fmt(x)}, ${fmt(y)})`.replace(/-/g,'−');
+---
+<section class="rules-section"><h2>{heading}</h2><p>Every rule below acts on the original point P(3, 1). Rotations turn about the origin; positive angles turn counterclockwise. Translations, reflections, and rotations are rigid transformations (isometries): they keep lengths, angles, and area. A dilation keeps angles but scales lengths.</p><div class="fact-table-wrap"><table class="fact-table rules-table"><thead><tr><th scope="col">Transformation</th><th scope="col">Coordinate rule</th><th scope="col">P(3, 1) →</th></tr></thead><tbody>{transformationRules.map(r=><tr><td><span class="rule-group">{r.group}</span>{r.name}{r.example&&<small> ({r.example})</small>}</td><td class="rule-formula">{r.rule}</td><td class="rule-formula">{point(r.apply([3,1]))}</td></tr>)}</tbody></table></div></section>
