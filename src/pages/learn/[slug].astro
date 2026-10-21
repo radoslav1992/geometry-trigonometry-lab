@@ -36,6 +36,6 @@ const items=faqs[`learn/${lesson.slug}`];
 {lesson.derivation&&<><h2>{lesson.derivation.title}</h2><ol class="derivation">{lesson.derivation.steps.map(step=><li>{step}</li>)}</ol></>}
 <h2>Common mistakes</h2><ul>{(lesson.mistakes||[lesson.pitfall]).map(item=><li>{item}</li>)}</ul>
 <div class="learning-strip"><div><h2>Make the formula move.</h2><p>Open the full tool for a larger workspace.</p></div><a href={lesson.href}>{lesson.cta} ↗</a></div><h2 class="related-heading">Keep exploring</h2><div class="related">{related.map(l=><a href={`/learn/${l.slug}/`}>{l.heading||l.title} ↗</a>)}<a href="/learn/">All formula guides ↗</a></div><RelatedLearning topic={lesson.slug}/></div>
-<AdSlot type="native"/>
+{items&&<AdSlot type="native"/>}
 {items&&<Faq items={items} title={`${heading}: common questions`}/>}
 </article></Layout>

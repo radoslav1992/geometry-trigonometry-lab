@@ -55,7 +55,7 @@ Adsterra serves banner ads only: no pop-unders, social bars, smartlinks, interst
 
 - `leaderboard`: 728×90 on screens 800px and wider, 320×50 on phones. `Layout.astro` places one above the footer on every page; pass `ads={false}` to the layout to omit it (the 404 page does).
 - `rectangle`: 300×250, placed after the calculator, solver, or explorer on tool pages, formula guides, shape pages, the triangle solver, unit circle, and area/volume calculators.
-- `native`: Adsterra's native banner, placed near the end of those detail pages, just before the FAQ.
+- `native`: Adsterra's native banner, placed just before the FAQ on formula guides that have one, the unit circle, and the area/volume calculators. Tool pages, shape pages, and the triangle solver skip it because it would sit right next to another ad.
 
 Hub pages and the homepage show only the leaderboard, so no page has more than three slots. Each slot reserves its size up front so content never jumps, is labeled "Advertisement", and is hidden when printing. The ad scripts load only when a slot nears the viewport and only on `geometrylab.net`, so local development and preview deployments never request ads. Banner scripts share Adsterra's global `atOptions`, so `AdSlot` loads them one at a time. `tests/ads.test.mjs` checks the keys and domain.
 
