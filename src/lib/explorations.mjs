@@ -25,3 +25,29 @@ export function explore(slug,v,mode){const tool=explorations.find(t=>t.slug===sl
  if(slug==='triangle-playground'){const pts=[[v.ax,v.ay],[v.bx,v.by],[v.cx,v.cy]],dist=(p,q)=>Math.hypot(p[0]-q[0],p[1]-q[1]),a=dist(pts[1],pts[2]),b=dist(pts[0],pts[2]),c=dist(pts[0],pts[1]),area=polygonArea(pts),center=[(v.ax+v.bx+v.cx)/3,(v.ay+v.by+v.cy)/3];if(area<1e-7)throw Error('The vertices are on a line or overlap. Move one point to make a triangle.');const t=solveTriangle('sss',[a,b,c])[0],right=[t.A,t.B,t.C].some(n=>Math.abs(n-90)<0.1);const equal=(u,w)=>Math.abs(u-w)<0.001*Math.max(u,w);const type=equal(a,b)&&equal(b,c)?'Equilateral':equal(a,b)||equal(b,c)||equal(a,c)?'Isosceles':'Scalene';m('Side type',type);m('Angle type',right?'Right':Math.max(t.A,t.B,t.C)>90?'Obtuse':'Acute');m('Area',fmt(area)+' units²');m('Perimeter',fmt(a+b+c));m('Angles A · B · C',`${fmt(t.A,1)}° · ${fmt(t.B,1)}° · ${fmt(t.C,1)}°`);m('Centroid',`(${fmt(center[0])}, ${fmt(center[1])})`);steps.push(`Opposite sides: a = ${fmt(a)}, b = ${fmt(b)}, c = ${fmt(c)}.`,`The coordinate (shoelace) formula gives area ${fmt(area)}. The angle sum is 180°.`,`Average the three x-coordinates and three y-coordinates to locate the centroid. It divides each median in a 2:1 ratio.`);model={points:pts,center,area,type,right};}
  return {metrics,steps,model};
 }
+// Coordinate rules shown as a reference table. Each example applies its rule to P(3, 1).
+export const transformationRules=[
+ {group:'Translation',name:'Translate by (a, b)',rule:'(x, y) → (x + a, y + b)',example:'a = −4, b = 2',apply:([x,y])=>[x-4,y+2]},
+ {group:'Reflection',name:'Reflect over the x-axis',rule:'(x, y) → (x, −y)',apply:([x,y])=>[x,-y]},
+ {group:'Reflection',name:'Reflect over the y-axis',rule:'(x, y) → (−x, y)',apply:([x,y])=>[-x,y]},
+ {group:'Reflection',name:'Reflect over y = x',rule:'(x, y) → (y, x)',apply:([x,y])=>[y,x]},
+ {group:'Reflection',name:'Reflect over y = −x',rule:'(x, y) → (−y, −x)',apply:([x,y])=>[-y,-x]},
+ {group:'Reflection',name:'Reflect over the line x = h',rule:'(x, y) → (2h − x, y)',example:'h = 2',apply:([x,y])=>[4-x,y]},
+ {group:'Reflection',name:'Reflect over the line y = k',rule:'(x, y) → (x, 2k − y)',example:'k = 2',apply:([x,y])=>[x,4-y]},
+ {group:'Rotation',name:'Rotate 90° counterclockwise',rule:'(x, y) → (−y, x)',apply:([x,y])=>[-y,x]},
+ {group:'Rotation',name:'Rotate 180°',rule:'(x, y) → (−x, −y)',apply:([x,y])=>[-x,-y]},
+ {group:'Rotation',name:'Rotate 270° counterclockwise (90° clockwise)',rule:'(x, y) → (y, −x)',apply:([x,y])=>[y,-x]},
+ {group:'Dilation',name:'Dilate by k from the origin',rule:'(x, y) → (kx, ky)',example:'k = 2',apply:([x,y])=>[2*x,2*y]},
+];
+// Search titles and descriptions for the explorer pages. Kept apart from the tool definitions so
+// the browser bundle only carries what the interactive labs need.
+export const toolSeo={
+ 'right-triangle':{title:'Pythagorean Theorem Calculator: Hypotenuse & Legs',description:'Find the hypotenuse or a missing leg of a right triangle with a² + b² = c². See the triangle drawn to scale, its area, both acute angles, and every step.'},
+ 'polygon-explorer':{title:'Regular Polygon Calculator: Angles, Area & Diagonals',description:'Enter the number of sides and side length to find each interior and exterior angle, the angle sum, diagonals, apothem, perimeter, and area of a regular polygon.'},
+ 'coordinate-geometry':{title:'Distance, Midpoint & Slope Calculator (Two Points)',description:'Drag two points to find the distance, midpoint, slope, and line equation between them. Each answer shows the formula and the substituted values step by step.'},
+ 'circle-sectors':{title:'Arc Length & Sector Area Calculator With Steps',description:'Enter a radius and a central angle in degrees to find the arc length, sector area, chord length, and fraction of the circle, with the radian working shown.'},
+ 'angle-converter':{title:'Degrees to Radians Converter (and Turns)',description:'Convert degrees to radians, radians to degrees, or either to turns. See the coterminal angle, its quadrant, and the conversion steps on a live circle diagram.'},
+ 'trig-graphs':{title:'Sine & Cosine Graph Explorer: Amplitude & Period',description:'Change the amplitude, period, phase shift, and vertical shift of y = A sin(B(x − h)) + k and watch the graph respond, with its midline and range.'},
+ 'transformations':{title:'Transformations Tool: Translate, Rotate & Reflect',description:'Translate, rotate, reflect, or dilate a triangle on the coordinate plane. See every new vertex, compare areas, and use the coordinate rules table for each move.'},
+ 'triangle-playground':{title:'Triangle Sandbox: Drag Vertices, Area & Centroid',description:'Drag three vertices to discover triangle types, angles, area, perimeter, and the centroid. Then try to build a right, isosceles, or 24-unit² triangle.'},
+};

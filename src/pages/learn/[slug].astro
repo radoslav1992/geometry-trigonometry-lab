@@ -1,7 +1,38 @@
 ---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Exploration from '../../components/Exploration.astro';
+import Faq from '../../components/Faq.astro';
 import RelatedLearning from '../../components/RelatedLearning.astro';
-import Layout from '../../layouts/Layout.astro';import {lessons} from '../../lib/lessons.mjs';
+import ShapeCalculator from '../../components/ShapeCalculator.astro';
+import TransformationRules from '../../components/TransformationRules.astro';
+import TriangleSolver from '../../components/TriangleSolver.astro';
+import UnitCircle from '../../components/UnitCircle.astro';
+import Layout from '../../layouts/Layout.astro';import {lessons} from '../../lib/lessons.mjs';import {explorations} from '../../lib/explorations.mjs';import {faqs} from '../../lib/faqs.mjs';
 export function getStaticPaths(){return lessons.map(lesson=>({params:{slug:lesson.slug},props:{lesson}}));}
 const {lesson}=Astro.props;
+const heading=lesson.heading||lesson.title;
+const calc=lesson.calculator;
+const tool=calc?.type==='exploration'?explorations.find(t=>t.slug===calc.slug):null;
+const index=lessons.indexOf(lesson);
+const related=(lesson.related||[1,2,3].map(n=>lessons[(index+n)%lessons.length].slug)).map(slug=>lessons.find(l=>l.slug===slug));
+const examples=lesson.examples||[{title:'Work through an example',steps:[lesson.example]}];
+const items=faqs[`learn/${lesson.slug}`];
 ---
-<Layout title={`${lesson.title} — Formula & Worked Example`} section="Learn" description={lesson.subtitle+' '+lesson.body.slice(0,120)}><article class="article"><div class="breadcrumb"><a href="/learn/">Field notes</a> / {lesson.title}</div><div class="eyebrow">Geometry Lab reference</div><h1>{lesson.title}</h1><p>{lesson.subtitle}</p><div class="formula">{lesson.formula}</div><h2>The idea</h2><p>{lesson.body}</p><h2>Work through an example</h2><p>{lesson.example}</p><h2>What to watch for</h2><p>{lesson.pitfall}</p><div class="learning-strip"><div><h2>Make the formula move.</h2><p>Explore this idea with real inputs.</p></div><a href={lesson.href}>{lesson.cta} ↗</a></div><div class="related">{lessons.filter(l=>l.slug!==lesson.slug).slice(0,3).map(l=><a href={`/learn/${l.slug}/`}>{l.title} ↗</a>)}</div><RelatedLearning topic={lesson.slug}/></article></Layout>
+<Layout title={lesson.seoTitle||`${lesson.title} — Formula & Worked Example`} headline={heading} schemaType="Article" section="Learn" description={lesson.description||lesson.subtitle+' '+lesson.body.slice(0,120)}><article class="lesson">
+<div class="article"><Breadcrumbs items={[['Learn','/learn/'],[heading,`/learn/${lesson.slug}/`]]}/><div class="eyebrow">Geometry Lab formula guide</div><h1>{heading}</h1><p class="lesson-lead">{lesson.summary||lesson.subtitle}</p><div class="formula">{lesson.formula}</div>
+{lesson.forms&&<div class="fact-table-wrap"><table class="fact-table formula-table"><caption>Every version of the formula</caption><thead><tr><th scope="col">Use it to</th><th scope="col">Formula</th></tr></thead><tbody>{lesson.forms.map(([label,formula])=><tr><td>{label}</td><td class="rule-formula">{formula}</td></tr>)}</tbody></table></div>}
+{lesson.variables&&<><h2>What each letter means</h2><dl class="variable-list">{lesson.variables.map(([symbol,meaning])=><div><dt>{symbol}</dt><dd>{meaning}</dd></div>)}</dl></>}
+</div>
+{calc&&<section class="lesson-calculator" aria-labelledby="calculator-heading"><div class="article"><div class="eyebrow">Try it with your own numbers</div><h2 id="calculator-heading">{heading} calculator</h2><p>{lesson.calculatorNote||`${lesson.subtitle} Change a value and the diagram, result, and working update together.`}</p></div>
+{calc.type==='triangle'&&<TriangleSolver initial={calc.mode}/>}{tool&&<Exploration tool={tool}/>}{calc.type==='shape'&&<ShapeCalculator initial={calc.initial}/>}{calc.type==='circle'&&<UnitCircle/>}</section>}
+<div class="article"><h2>The idea</h2><p>{lesson.body}</p>
+{lesson.when&&<><h2>When to use it</h2><ul>{lesson.when.map(item=><li>{item}</li>)}</ul></>}
+{lesson.table&&<><h2>{lesson.table.title}</h2>{lesson.table.intro&&<p>{lesson.table.intro}</p>}<div class="fact-table-wrap"><table class="fact-table"><thead><tr>{lesson.table.head.map(h=><th scope="col">{h}</th>)}</tr></thead><tbody>{lesson.table.rows.map(row=><tr>{row.map(cell=><td>{cell}</td>)}</tr>)}</tbody></table></div></>}
+</div>
+{lesson.transformRules&&<TransformationRules/>}
+<div class="article"><h2>{examples.length>1?'Worked examples':'Work through an example'}</h2>{examples.map((ex,i)=><section class="worked-example"><h3><span class="example-number">{i+1}</span>{ex.title}</h3><ol>{ex.steps.map(step=><li>{step}</li>)}</ol>{ex.answer&&<p class="example-answer"><strong>Answer:</strong> {ex.answer}</p>}</section>)}
+{lesson.derivation&&<><h2>{lesson.derivation.title}</h2><ol class="derivation">{lesson.derivation.steps.map(step=><li>{step}</li>)}</ol></>}
+<h2>Common mistakes</h2><ul>{(lesson.mistakes||[lesson.pitfall]).map(item=><li>{item}</li>)}</ul>
+<div class="learning-strip"><div><h2>Make the formula move.</h2><p>Open the full tool for a larger workspace.</p></div><a href={lesson.href}>{lesson.cta} ↗</a></div><h2 class="related-heading">Keep exploring</h2><div class="related">{related.map(l=><a href={`/learn/${l.slug}/`}>{l.heading||l.title} ↗</a>)}<a href="/learn/">All formula guides ↗</a></div><RelatedLearning topic={lesson.slug}/></div>
+{items&&<Faq items={items} title={`${heading}: common questions`}/>}
+</article></Layout>

@@ -1,4 +1,4 @@
-import {fmt,rad} from './math.mjs';
+import {fmt,rad,radiansLabel,exactTrig} from './math.mjs';
 const point=p=>[360+p[0]*22,260-p[1]*22];
 const text=(x,y,value,color='#274f46',size=16)=>`<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" style="fill:${color};font-size:${size}px">${value}</text>`;
 const line=(p,q,color='#087f8c',dash=false)=>`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="${color}" stroke-width="2" ${dash?'stroke-dasharray="6 5"':''}/>`;
@@ -16,4 +16,21 @@ export function explorationDiagram(slug,m){
  if(slug==='transformations'){out=axisGrid()+polygon(m.before.map(point),'#86a69a')+polygon(m.after.map(point),'#d0753b');m.before.forEach((p,i)=>out+=dot(point(p),'ABC'[i],null,'#729686'));m.after.forEach((p,i)=>out+=dot(point(p),'ABC'[i]+'′',null,'#be632c'));}
  if(slug==='triangle-playground'){out=axisGrid()+polygon(m.points.map(point));const centroid=point(m.center);m.points.forEach((p,i)=>{const others=m.points.filter((_,j)=>i!==j);const mid=point([(others[0][0]+others[1][0])/2,(others[0][1]+others[1][1])/2]);out+=line(point(p),mid,'#dca77f',true)});out+=dot(centroid,'G',null,'#c47139');m.points.forEach((p,i)=>out+=dot(point(p),'ABC'[i],i));}
  return out;
+}
+// A printable unit-circle chart: each special angle with its radian measure, (cos θ, sin θ), and tan θ.
+export const SPECIAL_ANGLES=[0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330];
+export function unitCircleChartSvg(){
+ const c=450,r=210,label=318,esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+ const t=(x,y,value,size=15,color='#142b40',weight=400)=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" font-size="${size}" font-weight="${weight}" fill="${color}">${esc(value)}</text>`;
+ let out=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900" font-family="Georgia, serif" role="img" aria-labelledby="unit-circle-chart-title"><title id="unit-circle-chart-title">Unit circle chart with degrees, radians, sine, cosine, and tangent for every special angle</title><rect width="900" height="900" fill="#fffefa"/>`;
+ out+=`<line x1="${c-r-45}" y1="${c}" x2="${c+r+45}" y2="${c}" stroke="#a8bdb5" stroke-width="1.5"/><line x1="${c}" y1="${c-r-45}" x2="${c}" y2="${c+r+45}" stroke="#a8bdb5" stroke-width="1.5"/><circle cx="${c}" cy="${c}" r="${r}" fill="#64bfc512" stroke="#087f8c" stroke-width="2.5"/>`;
+ out+=['I','II','III','IV'].map((q,i)=>t(c+(i===0||i===3?1:-1)*95,c+(i<2?-1:1)*95+6,q,26,'#9fc7cb',700)).join('');
+ for(const a of SPECIAL_ANGLES){
+  const th=rad(a),x=Math.cos(th),y=Math.sin(th),px=c+x*r,py=c-y*r,lx=c+x*label,ly=c-y*label;
+  const tan=exactTrig(a,'tan');
+  out+=`<line x1="${c}" y1="${c}" x2="${px.toFixed(1)}" y2="${py.toFixed(1)}" stroke="#cfe3e1" stroke-width="1"/><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="5.5" fill="#087f8c" stroke="#fff" stroke-width="2"/>`;
+  out+=t(lx,ly-17,`${a}° · ${radiansLabel(a)}`,15,'#087f8c',700)+t(lx,ly+2,`(${exactTrig(a,'cos')}, ${exactTrig(a,'sin')})`,14)+t(lx,ly+20,`tan ${tan==='undefined'?'undefined':tan}`,13,'#b85b20');
+ }
+ out+=t(c,32,'The unit circle · point = (cos θ, sin θ) · tan θ = sin θ / cos θ',18,'#142b40',700)+t(c,880,'geometrylab.net/unit-circle/',13,'#526779');
+ return out+'</svg>';
 }
