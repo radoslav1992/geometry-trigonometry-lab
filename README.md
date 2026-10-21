@@ -47,7 +47,17 @@ The `.openai/hosting.json` file identifies the separate preview deployment and i
 
 Warm ivory surfaces, navy typography, teal controls, and yellow/orange accents. A live homepage experiment sits beside a compact introduction; tool and shape cards use geometric SVG previews. Color-coded calculator results, lettered practice answers, explanatory feedback, and a completion ring make progress easier to follow. Responsive desktop/mobile layouts, labeled controls, visible focus indicators, reduced-motion support, and live calculation feedback.
 
-Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. Google Analytics (G-9CCD0H600F) measures site usage through the shared page layout. No advertising scripts are installed. Calculator inputs remain on-device. The About page explains calculation rounding, local storage, and external font requests.
+Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. Google Analytics (G-9CCD0H600F) measures site usage through the shared page layout. Adsterra banner ads are described below. Calculator inputs remain on-device. The About page explains calculation rounding, local storage, and external font requests; `/privacy/` is the privacy policy (analytics, ads, local storage, opt-outs).
+
+## Ads
+
+Adsterra serves banner ads only: no pop-unders, social bars, smartlinks, interstitials, or sticky units. The unit keys live in `src/lib/ads.mjs` (copied from the Adsterra publisher dashboard), and `src/components/AdSlot.astro` renders each slot:
+
+- `leaderboard`: 728×90 on screens 800px and wider, 320×50 on phones. `Layout.astro` places one above the footer on every page; pass `ads={false}` to the layout to omit it (the 404 page does).
+- `rectangle`: 300×250, placed after the calculator, solver, or explorer on tool pages, formula guides, shape pages, the triangle solver, unit circle, and area/volume calculators.
+- `native`: Adsterra's native banner, placed near the end of those detail pages, just before the FAQ.
+
+Hub pages and the homepage show only the leaderboard, so no page has more than three slots. Each slot reserves its size up front so content never jumps, is labeled "Advertisement", and is hidden when printing. The ad scripts load only when a slot nears the viewport and only on `geometrylab.net`, so local development and preview deployments never request ads. Banner scripts share Adsterra's global `atOptions`, so `AdSlot` loads them one at a time. `tests/ads.test.mjs` checks the keys and domain.
 
 ## Search metadata
 
@@ -62,6 +72,7 @@ Every page has a canonical URL on `https://geometrylab.net`, a search-focused ti
 - `src/styles/studio.css`: the shared visual theme, responsive layouts, and practice states.
 - `src/components/DiagramThumb.astro`: reusable geometric previews for tools, shapes, and lessons.
 - `src/lib/nets.mjs`: printable net generator shared by the live tool, the prerendered preview, and the SVG downloads.
+- `src/lib/ads.mjs` and `src/components/AdSlot.astro`: Adsterra unit keys and the lazily loaded ad slot.
 - `tests/math.test.mjs`: calculation regression tests.
 - `tests/content.test.mjs`: worked-example answers, transformation rules, unit circle values, nets, composite areas, and search metadata.
 
