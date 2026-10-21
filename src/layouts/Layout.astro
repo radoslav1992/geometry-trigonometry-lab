@@ -1,9 +1,11 @@
 ---
 import '../styles/global.css';
 import '../styles/studio.css';
+import { learningApps, currentApp } from '../lib/learning-apps.mjs';
 const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore', schemaType='WebApplication', headline=title, noindex=false } = Astro.props;
 const activeSection = ['Triangle solver','Unit circle','Area & volume'].includes(section)?'Tools':section;
 const url = new URL(Astro.url.pathname, Astro.site);
+const sisterApps = learningApps.filter(app => app.id !== currentApp && app.url);
 const nav=[['Explore','/'],['Tools','/tools/'],['Shapes','/shapes/'],['Practice','/practice/'],['Printables','/printable-nets/'],['Learn','/learn/']];
 const brand='Geometry Lab';
 // Append the brand only while the whole tag stays within typical search-snippet width.
@@ -43,6 +45,6 @@ const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alte
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header"><a href="/" class="brand" aria-label="Geometry Lab home"><img src="/favicon.svg" width="37" height="37" alt=""/><span>geometry<span class="brand-light">lab</span><small>A PLACE FOR THINGS TO CLICK.</small></span></a><nav aria-label="Main navigation">{nav.map(([label,href])=><a href={href} class:list={{active:activeSection===label}} aria-current={activeSection===label?'page':undefined}>{label}</a>)}</nav><a href="/worksheets/" class="header-learn">Worksheets <span aria-hidden="true">↗</span></a></header>
   <main id="main"><slot/></main>
-  <footer class="site-footer"><a href="/" class="footer-brand">geometry<span class="brand-light">lab</span></a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/about/">About this lab</a><a href="/#learning-apps">Explore our learning apps</a><a href="mailto:info@geometrylab.net">info@geometrylab.net</a></div><span>Free to explore. No account needed.</span></footer>
+  <footer class="site-footer"><a href="/" class="footer-brand">geometry<span class="brand-light">lab</span></a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/about/">About this lab</a><a href="/#learning-apps">Explore our learning apps</a><a href="mailto:info@geometrylab.net">info@geometrylab.net</a></div><nav class="footer-apps" aria-label="More free learning apps"><strong>More free learning apps</strong>{sisterApps.map(app=><a href={app.url+'/'}>{app.name}</a>)}</nav><span>Free to explore. No account needed.</span></footer>
 </body>
 </html>

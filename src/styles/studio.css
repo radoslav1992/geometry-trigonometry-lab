@@ -386,3 +386,4 @@ to{transform:scale(1);opacity:1}
 .shape-page>h2{margin:40px 0 18px}
 .shape-reference-grid h2{font-size:23px}
 composite-lab{display:block}
+.footer-apps{width:100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}.footer-apps strong{color:var(--ink);font-weight:700}
