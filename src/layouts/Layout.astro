@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/studio.css';
 import { learningApps, currentApp } from '../lib/learning-apps.mjs';
 import AdSlot from '../components/AdSlot.astro';
+import AdFree from '../components/AdFree.astro';
 const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore', schemaType='WebApplication', headline=title, noindex=false, ads=true } = Astro.props;
 const activeSection = ['Triangle solver','Unit circle','Area & volume'].includes(section)?'Tools':section;
 const url = new URL(Astro.url.pathname, Astro.site);
@@ -23,7 +24,7 @@ const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alte
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><AdFree/>
   <title>{pageTitle}</title>
   <meta name="description" content={description}/><link rel="canonical" href={url}/>
   <meta name="robots" content={noindex?'noindex,follow':'index,follow,max-image-preview:large'}/>
