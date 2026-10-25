@@ -1,13 +1,15 @@
 ---
 import AdSlot from '../components/AdSlot.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ClassroomBar from '../components/ClassroomBar.astro';
 import CompositeArea from '../components/CompositeArea.astro';
 import Faq from '../components/Faq.astro';
 import {faqs} from '../lib/faqs.mjs';
+import {activitiesForTool} from '../lib/activities.mjs';
 import {lessons} from '../lib/lessons.mjs';
 import Layout from '../layouts/Layout.astro';import ShapeCalculator from '../components/ShapeCalculator.astro';
 const chart=lessons.find(l=>l.slug==='area-and-perimeter').table;
 ---
-<Layout title="Area & Perimeter Calculator: Rectangle, Circle & More" headline="Area & perimeter calculator" section="Area & volume" description="Find the area and perimeter of rectangles, circles, triangles, and trapezoids with diagrams and steps, or add and subtract parts for a composite shape."><Breadcrumbs items={[['Tools','/tools/'],['Area calculator','/area-calculator/']]}/><div class="intro"><div><div class="eyebrow">Measure the space inside · a shape, a size, a solution</div><h1>Area &amp; perimeter calculator</h1><p>Choose a rectangle, circle, triangle, or trapezoid, adjust the dimensions, and see exactly how the area and perimeter come together.</p></div></div><ShapeCalculator/><CompositeArea/><AdSlot type="rectangle"/>
+<Layout title="Area & Perimeter Calculator: Rectangle, Circle & More" headline="Area & perimeter calculator" section="Area & volume" description="Find the area and perimeter of rectangles, circles, triangles, and trapezoids with diagrams and steps, or add and subtract parts for a composite shape."><Breadcrumbs items={[['Tools','/tools/'],['Area calculator','/area-calculator/']]}/><div class="intro"><div><div class="eyebrow">Measure the space inside · a shape, a size, a solution</div><h1>Area &amp; perimeter calculator</h1><p>Choose a rectangle, circle, triangle, or trapezoid, adjust the dimensions, and see exactly how the area and perimeter come together.</p></div></div><ClassroomBar activities={activitiesForTool('area-calculator')}/><ShapeCalculator/><CompositeArea/><AdSlot type="rectangle"/>
 <section class="explanation"><h2>{chart.title}</h2><p>Area is in square units and perimeter is in length units. Use the perpendicular height wherever h appears.</p><div class="fact-table-wrap"><table class="fact-table"><thead><tr>{chart.head.map(h=><th scope="col">{h}</th>)}</tr></thead><tbody>{chart.rows.map(row=><tr>{row.map(cell=><td>{cell}</td>)}</tr>)}</tbody></table></div></section>
 <div class="related"><a href="/volume-calculator/">Go to volume calculators ↗</a><a href="/learn/area-and-perimeter/">Area & perimeter formulas with examples ↗</a><a href="/learn/herons-formula/">Triangle area from three sides ↗</a><a href="/learn/arcs-and-sectors/">Sector area ↗</a></div><AdSlot type="native"/><Faq items={faqs['area-calculator']} title="Area and perimeter questions"/></Layout>

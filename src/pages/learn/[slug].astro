@@ -1,6 +1,7 @@
 ---
 import AdSlot from '../../components/AdSlot.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ClassroomBar from '../../components/ClassroomBar.astro';
 import Exploration from '../../components/Exploration.astro';
 import Faq from '../../components/Faq.astro';
 import RelatedLearning from '../../components/RelatedLearning.astro';
@@ -8,7 +9,7 @@ import ShapeCalculator from '../../components/ShapeCalculator.astro';
 import TransformationRules from '../../components/TransformationRules.astro';
 import TriangleSolver from '../../components/TriangleSolver.astro';
 import UnitCircle from '../../components/UnitCircle.astro';
-import Layout from '../../layouts/Layout.astro';import {lessons} from '../../lib/lessons.mjs';import {explorations} from '../../lib/explorations.mjs';import {faqs} from '../../lib/faqs.mjs';
+import Layout from '../../layouts/Layout.astro';import {lessons} from '../../lib/lessons.mjs';import {explorations} from '../../lib/explorations.mjs';import {faqs} from '../../lib/faqs.mjs';import {activityFor} from '../../lib/activities.mjs';
 export function getStaticPaths(){return lessons.map(lesson=>({params:{slug:lesson.slug},props:{lesson}}));}
 const {lesson}=Astro.props;
 const heading=lesson.heading||lesson.title;
@@ -18,9 +19,10 @@ const index=lessons.indexOf(lesson);
 const related=(lesson.related||[1,2,3].map(n=>lessons[(index+n)%lessons.length].slug)).map(slug=>lessons.find(l=>l.slug===slug));
 const examples=lesson.examples||[{title:'Work through an example',steps:[lesson.example]}];
 const items=faqs[`learn/${lesson.slug}`];
+const activity=activityFor(lesson.slug);
 ---
 <Layout title={lesson.seoTitle||`${lesson.title} — Formula & Worked Example`} headline={heading} schemaType="Article" section="Learn" description={lesson.description||lesson.subtitle+' '+lesson.body.slice(0,120)}><article class="lesson">
-<div class="article"><Breadcrumbs items={[['Learn','/learn/'],[heading,`/learn/${lesson.slug}/`]]}/><div class="eyebrow">Geometry Lab formula guide</div><h1>{heading}</h1><p class="lesson-lead">{lesson.summary||lesson.subtitle}</p><div class="formula">{lesson.formula}</div>
+<div class="article"><Breadcrumbs items={[['Learn','/learn/'],[heading,`/learn/${lesson.slug}/`]]}/><div class="eyebrow">Geometry Lab formula guide</div><h1>{heading}</h1><p class="lesson-lead">{lesson.summary||lesson.subtitle}</p><div class="formula">{lesson.formula}</div><ClassroomBar activities={activity?[activity]:[]}/>
 {lesson.forms&&<div class="fact-table-wrap"><table class="fact-table formula-table"><caption>Every version of the formula</caption><thead><tr><th scope="col">Use it to</th><th scope="col">Formula</th></tr></thead><tbody>{lesson.forms.map(([label,formula])=><tr><td>{label}</td><td class="rule-formula">{formula}</td></tr>)}</tbody></table></div>}
 {lesson.variables&&<><h2>What each letter means</h2><dl class="variable-list">{lesson.variables.map(([symbol,meaning])=><div><dt>{symbol}</dt><dd>{meaning}</dd></div>)}</dl></>}
 </div>

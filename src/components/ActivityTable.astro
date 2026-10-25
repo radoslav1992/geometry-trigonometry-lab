@@ -1,0 +1,5 @@
+---
+// The worksheet's results table: blank for students, filled from the tools' own readouts in the answer key.
+const { act, answers = false } = Astro.props;
+---
+<div class="fact-table-wrap record-wrap"><table class="record-table"><thead><tr><th scope="col">Setting</th>{act.table.record.map(h => <th scope="col">{h}</th>)}</tr></thead><tbody>{act.table.rows.map(([label, values]) => <tr><th scope="row">{label}</th>{act.table.record.map(h => <td>{answers ? values[h] : ''}</td>)}</tr>)}</tbody></table></div>
