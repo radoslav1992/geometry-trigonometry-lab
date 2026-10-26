@@ -1,0 +1,8 @@
+---
+// Teacher strip for tool, guide and shape pages: printable activities for this topic plus sharing.
+import ClassroomShare from './ClassroomShare.astro';
+interface Props { activities?: { lesson: string; title: string }[] }
+const { activities = [] } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+---
+<aside class="classroom-bar no-print" aria-label="For teachers"><span class="classroom-bar-label">For teachers</span>{activities.map(a => <a class="classroom-activity" href={`/learn/${a.lesson}/activity/`}>Printable activity: {a.title.replace(/ Worksheet.*$/, '')} <span aria-hidden="true">↗</span></a>)}<ClassroomShare url={url}/><a class="classroom-all" href="/teachers/">All classroom activities</a></aside>

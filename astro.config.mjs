@@ -5,5 +5,6 @@ export default defineConfig({
   site: 'https://geometrylab.net',
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap({ filter: page => !page.endsWith('/404/') })],
+  // Teacher answer keys are noindex and kept out of the sitemap.
+  integrations: [sitemap({ filter: page => !page.endsWith('/404/') && !page.includes('/teachers/answers/') })],
 });

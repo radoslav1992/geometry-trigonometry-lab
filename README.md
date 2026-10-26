@@ -18,6 +18,15 @@ A complete static Astro website for visual mathematics. All interactive calculat
 - A homepage FAQ and tailored questions beneath all 12 explorers/calculators and eight shape calculators. Answers are prerendered and native disclosure controls work without JavaScript.
 - Printable worksheets with 8, 12, or 20 questions and an optional answer key.
 
+## For teachers
+
+`/teachers/` is the classroom hub: how to use the tools in class, a table of 12 activities (topic, tool, grade band, time, Common Core connection, worksheet, answer key, Share to Google Classroom), links to the other printables, Chromebook and no-login notes, student privacy, and a teacher FAQ.
+
+- Each activity is a one-page printable worksheet at `/learn/<lesson>/activity/` with a goal, steps that name the tool's real controls, a blank results table, and 5–7 questions. The activities live in `src/lib/activities.mjs`; tool, guide, and shape pages link their activity from a "For teachers" strip (`ClassroomBar.astro`).
+- Answer keys at `/teachers/answers/<lesson>/` are linked only from the hub, marked `noindex`, left out of the sitemap (see the filter in `astro.config.mjs`), and show no ads. Every value in a key is computed by `src/lib/math.mjs` or `explore()` in `src/lib/explorations.mjs`, the same code the tools run, and `tests/activities.test.mjs` checks each answer against those numbers within rounding.
+- Standards: an activity lists a Common Core code only where it clearly applies; Heron's formula and polygon angle sums list none.
+- `ClassroomShare.astro` is a plain link to `https://classroom.google.com/share?url=` plus the encoded canonical URL with `?classroom=1`, so students who open a shared link get the ad-free classroom mode. It loads no Google script.
+
 ## Development
 
 Requires Node.js 22 LTS or newer.
@@ -53,15 +62,17 @@ Google Fonts supplies DM Sans and Manrope; system fonts are fallbacks. Google An
 
 Adsterra serves banner ads only: no pop-unders, social bars, smartlinks, interstitials, or sticky units. The unit keys live in `src/lib/ads.mjs` (copied from the Adsterra publisher dashboard), and `src/components/AdSlot.astro` renders each slot:
 
-- `leaderboard`: 728×90 on screens 800px and wider, 320×50 on phones. `Layout.astro` places one above the footer on every page; pass `ads={false}` to the layout to omit it (the 404 page does).
+- `leaderboard`: 728×90 on screens 800px and wider, 320×50 on phones. `Layout.astro` places one above the footer on every page; pass `ads={false}` to the layout to omit it (the 404 page, the teacher hub, and the answer keys do). Printable activity pages show only this on-screen leaderboard.
 - `rectangle`: 300×250, placed after the calculator, solver, or explorer on tool pages, formula guides, shape pages, the triangle solver, unit circle, and area/volume calculators.
 - `native`: Adsterra's native banner, placed just before the FAQ on formula guides that have one, the unit circle, and the area/volume calculators. Tool pages, shape pages, and the triangle solver skip it because it would sit right next to another ad.
 
 Hub pages and the homepage show only the leaderboard, so no page has more than three slots. Each slot reserves its size up front so content never jumps, is labeled "Advertisement", and is hidden when printing. The ad scripts load only when a slot nears the viewport and only on `geometrylab.net`, so local development and preview deployments never request ads. Banner scripts share Adsterra's global `atOptions`, so `AdSlot` loads them one at a time. Students who arrive from Google Classroom, Canvas, or Schoology (or through a link carrying `?classroom`) browse ad-free on that device for 30 days: `src/components/AdFree.astro` runs in the page head and marks the page `ad-free` before anything renders, so `AdSlot` neither shows nor loads ads. `tests/ads.test.mjs` checks the keys and domain.
 
+Cookie consent: `src/components/ConsentDefaults.astro` runs in `<head>` right after `AdFree.astro` and before the Google tag. It sets Google Consent Mode v2 defaults (analytics and ad storage denied by default in the EEA, the UK and Switzerland, granted elsewhere) and restores a saved choice (`cookieConsent` in localStorage, kept 180 days). Visitors whose time zone is in Europe see `src/components/ConsentBanner.astro`, a small non-blocking banner with equally weighted Accept and Reject buttons. Until they accept, `AdSlot` neither shows nor loads ads; Reject keeps analytics cookie-free and shows no ads. *Cookie settings* in the footer reopens the banner, and accepting later starts ads without a reload. Students arriving from school platforms stay ad-free regardless of their choice. The banner colours are the `--consent-*` variables in `src/styles/global.css`.
+
 ## Search metadata
 
-Every page has a canonical URL on `https://geometrylab.net`, a search-focused title and description, and JSON-LD: `WebApplication` for tools and shape pages, `Article`/`LearningResource` for formula guides, `CollectionPage` for hubs, and `WebSite` on the homepage. `Breadcrumbs.astro` renders the visible trail with matching `BreadcrumbList` data, and `Faq.astro` emits `FAQPage` data for the questions shown on the same page. Lesson titles and descriptions live in `src/lib/lessons.mjs`, shape copy in `src/lib/shape-facts.mjs`, and explorer copy in `toolSeo` in `src/lib/explorations.mjs`; `tests/content.test.mjs` keeps them within snippet length and unique.
+Every page has a canonical URL on `https://geometrylab.net`, a search-focused title and description, and JSON-LD: `WebApplication` for tools and shape pages, `Article`/`LearningResource` for formula guides, `LearningResource` with Common Core alignments for classroom activities, `CollectionPage` for hubs, and `WebSite` on the homepage. `Breadcrumbs.astro` renders the visible trail with matching `BreadcrumbList` data, and `Faq.astro` emits `FAQPage` data for the questions shown on the same page. Lesson titles and descriptions live in `src/lib/lessons.mjs`, shape copy in `src/lib/shape-facts.mjs`, and explorer copy in `toolSeo` in `src/lib/explorations.mjs`; `tests/content.test.mjs` keeps them within snippet length and unique.
 
 ## Source structure
 
@@ -73,7 +84,9 @@ Every page has a canonical URL on `https://geometrylab.net`, a search-focused ti
 - `src/components/DiagramThumb.astro`: reusable geometric previews for tools, shapes, and lessons.
 - `src/lib/nets.mjs`: printable net generator shared by the live tool, the prerendered preview, and the SVG downloads.
 - `src/lib/ads.mjs` and `src/components/AdSlot.astro`: Adsterra unit keys and the lazily loaded ad slot.
+- `src/lib/activities.mjs`: classroom activities, their worksheet steps and questions, and answer-key values computed from the tools' math.
 - `tests/math.test.mjs`: calculation regression tests.
+- `tests/activities.test.mjs`: activity completeness, control names that exist in each tool, known standards codes, and answer-key values.
 - `tests/content.test.mjs`: worked-example answers, transformation rules, unit circle values, nets, composite areas, and search metadata.
 
 For printables, use A4 paper at 100% scale, disable browser headers/footers, and verify the 20 mm reference line. The pyramid input is face slant height, not vertical height.

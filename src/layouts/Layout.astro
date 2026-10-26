@@ -4,27 +4,30 @@ import '../styles/studio.css';
 import { learningApps, currentApp } from '../lib/learning-apps.mjs';
 import AdSlot from '../components/AdSlot.astro';
 import AdFree from '../components/AdFree.astro';
-const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore', schemaType='WebApplication', headline=title, noindex=false, ads=true } = Astro.props;
+import ConsentDefaults from '../components/ConsentDefaults.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+const { title = 'Geometry & Trigonometry Lab', description = 'Free visual geometry tools: solve triangles, explore the unit circle, calculate area and volume, and practice with instant explanations.', section='Explore', schemaType='WebApplication', headline=title, noindex=false, ads=true, schema: pageSchema } = Astro.props;
 const activeSection = ['Triangle solver','Unit circle','Area & volume'].includes(section)?'Tools':section;
 const url = new URL(Astro.url.pathname, Astro.site);
 const sisterApps = learningApps.filter(app => app.id !== currentApp && app.url);
-const nav=[['Explore','/'],['Tools','/tools/'],['Shapes','/shapes/'],['Practice','/practice/'],['Printables','/printable-nets/'],['Learn','/learn/']];
+const nav=[['Explore','/'],['Tools','/tools/'],['Shapes','/shapes/'],['Practice','/practice/'],['Printables','/printable-nets/'],['Learn','/learn/'],['Teachers','/teachers/']];
 const brand='Geometry Lab';
 // Append the brand only while the whole tag stays within typical search-snippet width.
 const pageTitle=title==='Geometry & Trigonometry Lab'||title.includes(brand)||title.length+brand.length+3>68?title:`${title} | ${brand}`;
 const home=new URL('/',Astro.site).href;
 const org={'@type':'Organization',name:brand,url:home,email:'info@geometrylab.net'};
-const schema=schemaType==='Article'
+// Pages such as printable worksheets can pass their own `schema` object instead.
+const schema=pageSchema||(schemaType==='Article'
   ?{'@context':'https://schema.org','@type':['Article','LearningResource'],headline,name:headline,description,url:url.href,mainEntityOfPage:url.href,inLanguage:'en',isAccessibleForFree:true,learningResourceType:'Lesson',educationalLevel:'Middle school, high school',author:org,publisher:org}
   :schemaType==='CollectionPage'
     ?{'@context':'https://schema.org','@type':'CollectionPage',name:headline,description,url:url.href,inLanguage:'en',isAccessibleForFree:true,publisher:org}
-    :{'@context':'https://schema.org','@type':'WebApplication',name:headline,url:url.href,description,applicationCategory:'EducationalApplication',operatingSystem:'Any',browserRequirements:'Requires JavaScript',isAccessibleForFree:true,inLanguage:'en',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'},publisher:org};
+    :{'@context':'https://schema.org','@type':'WebApplication',name:headline,url:url.href,description,applicationCategory:'EducationalApplication',operatingSystem:'Any',browserRequirements:'Requires JavaScript',isAccessibleForFree:true,inLanguage:'en',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'},publisher:org});
 const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alternateName:'Geometry & Trigonometry Lab',url:home,description,inLanguage:'en',publisher:org};
 ---
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><AdFree/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><AdFree/><ConsentDefaults/>
   <title>{pageTitle}</title>
   <meta name="description" content={description}/><link rel="canonical" href={url}/>
   <meta name="robots" content={noindex?'noindex,follow':'index,follow,max-image-preview:large'}/>
@@ -48,6 +51,7 @@ const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alte
   <header class="site-header"><a href="/" class="brand" aria-label="Geometry Lab home"><img src="/favicon.svg" width="37" height="37" alt=""/><span>geometry<span class="brand-light">lab</span><small>A PLACE FOR THINGS TO CLICK.</small></span></a><nav aria-label="Main navigation">{nav.map(([label,href])=><a href={href} class:list={{active:activeSection===label}} aria-current={activeSection===label?'page':undefined}>{label}</a>)}</nav><a href="/worksheets/" class="header-learn">Worksheets <span aria-hidden="true">↗</span></a></header>
   <main id="main"><slot/></main>
   {ads&&<AdSlot type="leaderboard"/>}
-  <footer class="site-footer"><a href="/" class="footer-brand">geometry<span class="brand-light">lab</span></a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/about/">About this lab</a><a href="/#learning-apps">Explore our learning apps</a><a href="mailto:info@geometrylab.net">info@geometrylab.net</a><a href="/privacy/">Privacy policy</a></div><nav class="footer-apps" aria-label="More free learning apps"><strong>More free learning apps</strong>{sisterApps.map(app=><a href={app.url+'/'}>{app.name}</a>)}</nav><span>Free to explore. No account needed.</span></footer>
+  <footer class="site-footer"><a href="/" class="footer-brand">geometry<span class="brand-light">lab</span></a><p>A little curiosity. A clearer picture.</p><div><a href="/learn/">Formula reference</a><a href="/teachers/">For teachers</a><a href="/about/">About this lab</a><a href="/#learning-apps">Explore our learning apps</a><a href="mailto:info@geometrylab.net">info@geometrylab.net</a><a href="/privacy/">Privacy policy</a><button type="button" class="footer-link-button" data-cookie-settings>Cookie settings</button></div><nav class="footer-apps" aria-label="More free learning apps"><strong>More free learning apps</strong>{sisterApps.map(app=><a href={app.url+'/'}>{app.name}</a>)}</nav><span>Free to explore. No account needed.</span></footer>
+  <ConsentBanner/>
 </body>
 </html>
