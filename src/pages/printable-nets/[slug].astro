@@ -1,0 +1,26 @@
+---
+import AdSlot from '../../components/AdSlot.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ClassroomBar from '../../components/ClassroomBar.astro';
+import Faq from '../../components/Faq.astro';
+import NetLab from '../../components/NetLab.astro';
+import {faqs} from '../../lib/faqs.mjs';
+import {activityFor} from '../../lib/activities.mjs';
+import {NETS,netCounts,netGeometry} from '../../lib/nets.mjs';
+import {netPages} from '../../lib/net-pages.mjs';
+import Layout from '../../layouts/Layout.astro';
+export function getStaticPaths(){return Object.entries(NETS).map(([shape,net])=>({params:{slug:net.slug},props:{shape}}));}
+const {shape}=Astro.props;const net=NETS[shape],page=netPages[shape],name=net.title.toLowerCase();
+const seams=netGeometry(shape,net.values).seams;
+// Counts shown under the heading: "6 faces", "12 edges", "8 vertices", or the curved-solid wording.
+const quick=netCounts(shape).split(' · ').map(item=>[item.split(' ')[0],item.slice(item.indexOf(' ')+1)]);
+const facts=net.curved
+ ?[['Faces',page.faceText],...quick.slice(2).map(([count,label])=>[label[0].toUpperCase()+label.slice(1),count==='0'?'None':count]),['Glued seams',shape==='cylinder'?`${seams}: one along the side of the tube and one around each circle`:`${seams}: one along the side and one around the base`]]
+ :[['Faces',page.faceText],['Edges',String(net.edges)],['Vertices',String(net.vertices)],['Euler check',`Faces − edges + vertices = ${net.faces} − ${net.edges} + ${net.vertices} = 2`],['Fold lines in the net',`${net.faces-1}: the edges that stay joined`],['Glued seams',`${seams}: the other ${net.edges} − ${net.faces-1} = ${seams} edges are cut, and each appears twice on the outline`]];
+const others=Object.values(NETS).filter(item=>item!==net);
+---
+<Layout title={page.title} headline={`Printable ${name} net`} section="Printables" description={page.description}><div class="shape-page"><Breadcrumbs items={[['Printables','/printable-nets/'],[`${net.title} net`,`/printable-nets/${net.slug}/`]]}/><div class="intro"><div><div class="eyebrow">Printable net · print, cut, and fold</div><h1>Printable {name} net</h1><p>{page.intro}</p><ul class="shape-quick" aria-label={`${net.title} at a glance`}>{quick.map(([count,label])=><li><strong>{count}</strong> {label}</li>)}</ul></div></div><ClassroomBar activities={[activityFor('volume-and-surface-area')]}/>
+<NetLab initial={shape} fixed details/><AdSlot type="rectangle"/><noscript>Enable JavaScript to change the size or tabs. The {name} net above prints at the size shown and can be downloaded as an SVG: <a href={`/nets/${net.file}.svg`}>{net.file}.svg</a>.</noscript>
+<div class="no-print"><section class="explanation"><h2>How to fold the {name} net</h2><ol>{page.fold.map(step=><li>{step}</li>)}</ol>{page.note&&<p>{page.note}</p>}</section>
+<div class="shape-intro-grid"><section class="shape-fact-box"><h2>Faces, edges, and vertices of a {name}</h2><table class="fact-table"><tbody>{facts.map(([key,val])=><tr><th scope="row">{key}</th><td>{val}</td></tr>)}</tbody></table></section><aside class="shape-fact-box"><h3>Formulas and calculators</h3><p>Check the measurements of your {name} against the formulas, or try other sizes.</p><ul class="net-links">{page.links.map(([label,href])=><li><a class="text-link" href={href}>{label}</a></li>)}<li><a class="text-link" href={`/nets/${net.file}.svg`} download={`geometry-lab-${net.file}.svg`}>Download this net as an SVG file</a></li></ul></aside></div>
+<h2 class="related-heading">More printable nets</h2><div class="related">{others.map(item=><a href={`/printable-nets/${item.slug}/`}>{item.title} net ↗</a>)}<a href="/printable-nets/">All printable nets ↗</a></div><Faq items={faqs[`printable-nets/${net.slug}`]} title={`${net.title} net: common questions`}/></div></div></Layout>

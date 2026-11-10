@@ -1,4 +1,7 @@
 // Editorial questions are rendered into the page HTML, including collapsed answers.
+import {fmt} from './math.mjs';
+import {NETS,netDetails,netGeometry,coneSectorAngle} from './nets.mjs';
+import {explore} from './explorations.mjs';
 const q = (question, answer, href, label) => ({ question, answer, href, label });
 export const faqs = {
   home: [
@@ -9,20 +12,20 @@ export const faqs = {
     q('Can I use these resources for teaching or practice?', 'Yes. Try an eight-question practice round with explanations, create a worksheet with an optional answer key, or print a shape net to fold. Worksheets can contain 8, 12, or 20 questions.', '/worksheets/', 'Create a worksheet'),
   ],
   'learn/herons-formula': [
-    q('What is s in Heron’s formula?', 'The letter s is the semiperimeter: half of the triangle’s perimeter, s = (a + b + c)/2. For sides 3, 4, and 5, s = 6. It is not a side length, and using the full perimeter instead of s gives the wrong area.', '/triangle-solver/', 'Calculate s and the area'),
+    q('What is s in Heron’s formula?', 'The letter s is the semiperimeter: half of the triangle’s perimeter, s = (a + b + c)/2. For sides 3, 4, and 5, s = 6. It is not a side length, and using the full perimeter instead of s gives the wrong area.', '/tools/herons-formula-calculator/', 'Calculate s and the area'),
     q('When should I use Heron’s formula?', 'Use it when you know all three side lengths but not a height or an angle. If you already know a base and its perpendicular height, A = bh/2 is quicker. If you know two sides and the angle between them, use A = ½ab sin C.', '/learn/area-and-perimeter/', 'Compare area formulas'),
     q('Does Heron’s formula work for right and obtuse triangles?', 'Yes. It works for every valid triangle. For a 3-4-5 right triangle it gives √(6 × 3 × 2 × 1) = 6, which matches ½ × 3 × 4. The sides only need to satisfy the triangle inequality.', '/learn/pythagorean-theorem/', 'Review right triangles'),
     q('Who discovered Heron’s formula?', 'It is named after Heron (or Hero) of Alexandria, who recorded the formula with a proof in his Metrica around the first century AD. Some historians think Archimedes knew it earlier.'),
   ],
   'learn/law-of-cosines': [
     q('When do you use the law of cosines instead of the law of sines?', 'Use the law of cosines for SAS (two sides and the angle between them) and SSS (three sides). Use the law of sines when you know a side and its opposite angle, as in AAS, ASA, or SSA.', '/learn/law-of-sines/', 'Read the law of sines'),
-    q('How do you find an angle with the law of cosines?', 'Rearrange it: cos C = (a² + b² − c²)/(2ab), then take the inverse cosine. For sides 7, 8, and 9, the angle opposite 9 is arccos(32/112) ≈ 73.40°. Find the largest angle first; its cosine shows whether the triangle is obtuse.', '/triangle-solver/', 'Solve an SSS triangle'),
+    q('How do you find an angle with the law of cosines?', 'Rearrange it: cos C = (a² + b² − c²)/(2ab), then take the inverse cosine. For sides 7, 8, and 9, the angle opposite 9 is arccos(32/112) ≈ 73.40°. Find the largest angle first; its cosine shows whether the triangle is obtuse.', '/tools/law-of-cosines-calculator/', 'Find an angle from three sides'),
     q('Is the law of cosines the same as the cosine rule?', 'Yes. “Law of cosines” is common in the United States and “cosine rule” in the United Kingdom and elsewhere. Both name c² = a² + b² − 2ab cos C.'),
     q('How is the law of cosines related to the Pythagorean theorem?', 'When the angle C is 90°, cos C = 0, so the 2ab cos C term disappears and the formula becomes c² = a² + b². The extra term corrects for angles that are not right angles.', '/learn/pythagorean-theorem/', 'Review the Pythagorean theorem'),
   ],
   'learn/law-of-sines': [
     q('What is the law of sines used for?', 'It finds missing sides and angles when you know at least one side together with its opposite angle. Typical cases are two angles and a side (AAS or ASA) and two sides with a non-included angle (SSA).', '/triangle-solver/', 'Open the triangle solver'),
-    q('What is the ambiguous case of the law of sines?', 'In SSA, the known angle may not fix one triangle. Because sin B = sin(180° − B), there can be zero, one, or two valid triangles. Compare the side opposite the known angle with the height h = b sin A to decide.', '/triangle-solver/', 'Explore both SSA solutions'),
+    q('What is the ambiguous case of the law of sines?', 'In SSA, the known angle may not fix one triangle. Because sin B = sin(180° − B), there can be zero, one, or two valid triangles. Compare the side opposite the known angle with the height h = b sin A to decide.', '/tools/law-of-sines-calculator/', 'Check for zero, one, or two triangles'),
     q('How do you find an angle using the law of sines?', 'Rearrange to sin B = b sin A / a, then take the inverse sine. Check whether 180° − B also fits: it does when A + (180° − B) is still less than 180°.'),
     q('Can the law of sines be used on right triangles?', 'Yes. With C = 90°, sin C = 1, so a / sin A = c, which gives sin A = a / c: the familiar opposite-over-hypotenuse definition.', '/learn/trigonometric-ratios/', 'Connect to SOH CAH TOA'),
   ],
@@ -58,6 +61,7 @@ export const faqs = {
     q('What is the net of a square pyramid?', 'A square base with four triangles attached to its sides. Each triangle’s height is the pyramid’s slant height, which must be more than half the base width so the faces can meet at a point.', '/learn/volume-and-surface-area/', 'Pyramid volume and surface area'),
     q('How many different nets does a cube have?', 'A cube has 11 different nets, not counting rotations and reflections. This generator uses the familiar cross-shaped net: four faces in a row with one face above and one below.'),
     q('Which edges get glue tabs?', 'Tabs go on outside edges that must join another face. A cube or rectangular prism net needs seven glued seams to close; a square pyramid needs four. Fold every dashed line inward before gluing.'),
+    q('What is the net of a cylinder or a cone?', 'A cylinder net is a rectangle with a circle on each end; the rectangle is one circumference (2πr) wide. A cone net is a sector of a circle with a circle for the base; the sector’s angle is 360° × radius ÷ slant height, so its arc matches the edge of the base.', '/printable-nets/cone/', 'Print a cone net'),
   ],
   'triangle-solver': [
     q('How do I find a missing angle in a triangle?', 'If you know two interior angles, subtract their sum from 180°. For example, angles of 50° and 60° leave 70°. If you know side lengths instead, choose a supported solver mode to calculate the angles using the sine or cosine rule.', '/learn/law-of-cosines/', 'Understand the cosine rule'),
@@ -147,7 +151,7 @@ export const faqs = {
   ],
   cone: [
     q('How many faces, edges, and vertices does a cone have?', 'A cone has 1 flat circular face, 1 curved surface, 1 curved edge around the base, and 1 vertex at the apex. Some curricula list the edge count as zero because the edge is curved rather than straight.'),
-    q('Is a cone a 2D or 3D shape?', 'A cone is a three-dimensional solid. Its side view is a triangle and its base is a circle, which are two-dimensional. Unrolled, its net is a circle and a circular sector.', '/printable-nets/', 'See printable nets'),
+    q('Is a cone a 2D or 3D shape?', 'A cone is a three-dimensional solid. Its side view is a triangle and its base is a circle, which are two-dimensional. Unrolled, its net is a circle and a circular sector.', '/printable-nets/cone/', 'Print a cone net'),
     q('What is the cross-sectional area of a cone?', 'A cut parallel to the base is a circle. At distance y from the apex, its radius is r × y / h, so its area is π(ry / h)². A vertical cut through the apex gives an isosceles triangle with area r × h.'),
     q('Why is cone volume one third of cylinder volume?', 'A cone has one third the volume of a cylinder with the same base area and perpendicular height. Their formulas are πr²h/3 and πr²h respectively. The comparison only applies when both radius and height match.', '/shapes/cylinder/', 'Compare with a cylinder'),
     q('How do perpendicular height and slant height differ?', 'Perpendicular height runs from the tip straight down to the base plane. Slant height runs along the cone’s side. For a right circular cone, slant height is √(r² + h²). This calculator accepts perpendicular height and derives slant height for surface area.', '/learn/pythagorean-theorem/', 'See the Pythagorean connection'),
@@ -156,6 +160,82 @@ export const faqs = {
     q('Is a rectangular prism the same as a cuboid?', 'Yes. Rectangular prism is the usual name in the United States; cuboid is common in the United Kingdom and elsewhere. Both describe a solid with six rectangular faces meeting at right angles.'),
     q('How many faces, edges, and vertices does a rectangular prism have?', 'It has 6 faces, 12 edges, and 8 vertices. Euler’s formula checks it: 6 − 12 + 8 = 2. A cube is the special rectangular prism whose 12 edges are all equal.'),
     q('How do I calculate a rectangular prism’s volume?', 'Multiply width, height, and depth: V = whd. A box measuring 6 cm by 4 cm by 3 cm holds 72 cm³ of space. To estimate internal capacity, use its inside dimensions.', '/learn/volume-and-surface-area/', 'Read about volume'),
-    q('Why does the surface area formula have a factor of two?', 'A closed rectangular prism has three pairs of equal opposite faces. Add the areas wh, wd, and hd, then double the sum: S = 2(wh + wd + hd). Subtract any missing face separately for an open box.', '/printable-nets/', 'Build a prism from a net'),
+    q('Why does the surface area formula have a factor of two?', 'A closed rectangular prism has three pairs of equal opposite faces. Add the areas wh, wd, and hd, then double the sum: S = 2(wh + wd + hd). Subtract any missing face separately for an open box.', '/printable-nets/rectangular-prism/', 'Build a prism from a net'),
   ],
 };
+
+// Questions for the individual net pages. Every number is worked out from the net itself (nets.mjs)
+// at the default size the page opens with, so the answers match the net on screen.
+const size=shape=>NETS[shape].values,steps=shape=>netDetails(shape,size(shape)).steps;
+const euler=shape=>{const {faces,edges,vertices}=NETS[shape];return `${faces} faces, ${edges} edges, and ${vertices} vertices. Euler’s formula checks it: ${faces} − ${edges} + ${vertices} = 2.`};
+const [coneR,coneL]=size('cone'),[cylR]=size('cylinder'),[pyrBase,pyrSlant]=size('pyramid');
+Object.assign(faqs, {
+  'printable-nets/cube': [
+    q('What does the net of a cube look like?', 'A cube net is six equal squares joined edge to edge. This template uses the cross shape: four squares in a row with one square above and one below. A cube has 11 different nets, and every one of them folds into the same cube.'),
+    q('How do I find the surface area of a cube from its net?', `Add the areas of the six equal squares. For the ${fmt(size('cube')[0])} mm cube on this page: ${steps('cube')[0]}, so ${steps('cube')[1]}.`, '/shapes/cuboid/', 'Rectangular prism and cube formulas'),
+    q('Why does the cube net need seven glue tabs?', `A cube has ${NETS.cube.edges} edges. ${NETS.cube.faces - 1} of them are the fold lines that hold the six squares together in the net, which leaves ${netGeometry('cube', size('cube')).seams} edges that were cut open. Each cut edge needs one tab to close it.`),
+  ],
+  'printable-nets/rectangular-prism': [
+    q('Is a rectangular prism net the same as a cuboid net?', 'Yes. Rectangular prism and cuboid are two names for the same solid: a box with six rectangular faces. Its net has three pairs of equal rectangles.', '/shapes/cuboid/', 'Rectangular prism properties'),
+    q('How do I find the surface area of a rectangular prism from its net?', `Find the area of each pair of equal rectangles and add them. For the ${size('prism').map(v => fmt(v)).join(' × ')} mm box on this page: ${steps('prism').slice(0, 3).join('; ')}. ${steps('prism')[3]}.`, '/volume-calculator/', 'Check with the calculator'),
+    q('Can I make a net for a box of any size?', 'Each dimension can be 5 to 100 mm, as long as the net fits on one A4 page. The four side faces sit in a row, so with glue tabs twice the width plus twice the depth can be at most 168 mm.'),
+  ],
+  'printable-nets/triangular-prism': [
+    q('What shapes make up the net of a triangular prism?', 'Two triangles and three rectangles. The triangles are the two ends (the bases) and the rectangles are the three sides. In this template the triangles are equilateral, so the three rectangles are equal.'),
+    q('How do I find the surface area of a triangular prism from its net?', `Add the two triangles and the three rectangles. For this template: ${steps('triangular-prism').join('; ')}.`, '/learn/volume-and-surface-area/', 'Volume and surface area formulas'),
+    q('How many faces, edges, and vertices does a triangular prism have?', `A triangular prism has ${euler('triangular-prism')}`),
+  ],
+  'printable-nets/hexagonal-prism': [
+    q('What shapes make up the net of a hexagonal prism?', 'Two regular hexagons and six rectangles. The hexagons are the two ends (the bases) and the rectangles are the six sides, which unfold in a row.'),
+    q('How do I find the surface area of a hexagonal prism from its net?', `Add the two hexagons and the six rectangles. A regular hexagon with side s has area (3√3/2)s². For this template: ${steps('hexagonal-prism').join('; ')}.`, '/tools/polygon-explorer/', 'Find the area of a regular hexagon'),
+    q('How many faces, edges, and vertices does a hexagonal prism have?', `A hexagonal prism has ${euler('hexagonal-prism')}`),
+  ],
+  'printable-nets/square-pyramid': [
+    q('What shapes make up the net of a square pyramid?', 'One square and four equal triangles. The square is the base, and one triangle is attached to each of its sides. The triangles fold up and meet at the tip (the apex).'),
+    q('What is the difference between slant height and height?', `Slant height is measured along a triangular face, from the middle of a base edge to the tip. The height is measured straight up from the center of the base to the tip. For this template, a base of ${fmt(pyrBase)} mm and a slant height of ${fmt(pyrSlant)} mm give a height of √(${fmt(pyrSlant)}² − ${fmt(pyrBase / 2)}²) ≈ ${fmt(Math.sqrt(pyrSlant ** 2 - (pyrBase / 2) ** 2))} mm.`, '/tools/right-triangle/', 'Use the Pythagorean calculator'),
+    q('How do I find the surface area of a square pyramid from its net?', `Add the square base and the four triangles. For this template: ${steps('pyramid').join('; ')}.`, '/learn/volume-and-surface-area/', 'Volume and surface area formulas'),
+  ],
+  'printable-nets/tetrahedron': [
+    q('Is a tetrahedron the same as a triangular pyramid?', 'Yes: a tetrahedron is a pyramid with a triangular base, so it has four triangular faces. This template makes a regular tetrahedron, where all four faces are equal equilateral triangles and all six edges have the same length.'),
+    q('How many different nets does a tetrahedron have?', 'Two. One is the large triangle used here, with one face in the middle and the other three around it. The other is a strip of four triangles in a row. Both fold into the same tetrahedron.'),
+    q('How do I find the surface area of a tetrahedron from its net?', `Add the four equal triangles. An equilateral triangle with side a has area (√3/4)a². For this template: ${steps('tetrahedron').join(', so ')}.`, '/shapes/triangle/', 'Triangle area formulas'),
+  ],
+  'printable-nets/octahedron': [
+    q('What is an octahedron?', `A regular octahedron is a solid with eight equal equilateral-triangle faces. It has ${euler('octahedron')} It looks like two square pyramids joined base to base.`),
+    q('How many different nets does an octahedron have?', 'A regular octahedron has 11 different nets, the same number as a cube. This template uses a strip of six triangles with one more triangle on each side.'),
+    q('How do I find the surface area of an octahedron from its net?', `Add the eight equal triangles. An equilateral triangle with side a has area (√3/4)a². For this template: ${steps('octahedron').join(', so ')}.`, '/shapes/triangle/', 'Triangle area formulas'),
+  ],
+  'printable-nets/cylinder': [
+    q('What does the net of a cylinder look like?', 'A rectangle and two circles. The rectangle rolls up to make the curved surface, and the two circles close the ends.', '/shapes/cylinder/', 'Cylinder properties and formulas'),
+    q('How wide is the rectangle in a cylinder net?', `As wide as the distance around the circle: the circumference 2πr. That way the rolled edge meets the circle all the way round. For a radius of ${fmt(cylR)} mm, the rectangle is 2 × π × ${fmt(cylR)} ≈ ${fmt(2 * Math.PI * cylR)} mm wide. Its height is the height of the cylinder.`),
+    q('How do I find the surface area of a cylinder from its net?', `Add the rectangle and the two circles. For this template: ${steps('cylinder').join('; ')}.`, '/volume-calculator/', 'Check with the calculator'),
+  ],
+  'printable-nets/cone': [
+    q('What does the net of a cone look like?', 'A sector of a circle (a shape like a slice of pizza) and a circle. The sector rolls up to make the curved surface, and the circle is the base.', '/shapes/cone/', 'Cone properties and formulas'),
+    q('How do I find the angle of the sector in a cone net?', `The curved edge of the sector must be as long as the edge of the base, 2πr. The sector’s radius is the slant height ℓ, so its angle is θ = 360° × r ÷ ℓ. For r = ${fmt(coneR)} mm and ℓ = ${fmt(coneL)} mm, θ = 360° × ${fmt(coneR)} ÷ ${fmt(coneL)} = ${fmt(coneSectorAngle(coneR, coneL))}°.`, '/tools/circle-sectors/', 'Open the arc and sector calculator'),
+    q('How is slant height different from the height of a cone?', `Slant height ℓ runs along the side of the cone, from the tip to the edge of the base. The height h runs straight up the middle. They are linked by ℓ² = r² + h². For r = ${fmt(coneR)} mm and ℓ = ${fmt(coneL)} mm, the height is √(${fmt(coneL)}² − ${fmt(coneR)}²) ≈ ${fmt(Math.sqrt(coneL ** 2 - coneR ** 2))} mm.`),
+    q('How do I find the surface area of a cone from its net?', `Add the sector and the circle. For this template: ${steps('cone').join('; ')}.`, '/volume-calculator/', 'Check with the calculator'),
+  ],
+});
+
+// Questions for the dedicated triangle calculators. The worked numbers are the calculators' own steps.
+const run=(slug,values,mode)=>{const out=explore(slug,values,mode);return{steps:out.steps,...Object.fromEntries(out.metrics.map(m=>[m.label,m.value]))}};
+const sss=run('law-of-cosines-calculator',{a:7,b:8,c:9},'sss'),two=run('law-of-sines-calculator',{a:7,b:10,A:30},'ssa'),heron=run('herons-formula-calculator',{a:5,b:6,c:7});
+const impossible=(()=>{try{explore('herons-formula-calculator',{a:2,b:3,c:6});return ''}catch(error){return error.message}})();
+Object.assign(faqs, {
+  'law-of-cosines-calculator': [
+    q('When should I use the law of cosines?', 'Use it when you know two sides and the angle between them (SAS) and want the third side, or when you know all three sides (SSS) and want an angle. If you know two angles and a side, use the law of sines instead.', '/tools/law-of-sines-calculator/', 'Open the law of sines calculator'),
+    q('Is the cosine rule the same as the law of cosines?', 'Yes. Cosine rule, cosine law, and law of cosines are three names for the same formula: c² = a² + b² − 2ab cos C. When C is 90°, cos C is 0 and the formula becomes the Pythagorean theorem.', '/learn/law-of-cosines/', 'Read the law of cosines guide'),
+    q('How do I find an angle from three sides?', `Rearrange the formula to cos C = (a² + b² − c²) / (2ab), then take the inverse cosine. For sides 7, 8, and 9: ${sss.steps[1]} ${sss.steps[2]}`, '/learn/law-of-cosines/', 'See more worked examples'),
+  ],
+  'law-of-sines-calculator': [
+    q('When should I use the law of sines?', 'Use it when you know a side together with the angle opposite it, plus one more angle or side: two angles and any side (AAS or ASA), or two sides and an angle opposite one of them (SSA). For two sides and the angle between them, or for three sides, use the law of cosines.', '/tools/law-of-cosines-calculator/', 'Open the law of cosines calculator'),
+    q('What is the ambiguous case of the law of sines?', `With two sides and an angle opposite one of them (SSA), the measurements can fit no triangle, one triangle, or two, because an acute angle and its supplement have the same sine. For a = 7, b = 10, and A = 30°, the height is h = b sin A = ${two['Height h = b sin A']}. Because h < a < b, two triangles fit: B = ${two['Angle B']}, which gives c = ${two['Side c']}.`, '/learn/law-of-sines/', 'Read about the ambiguous case'),
+    q('Is the sine rule the same as the law of sines?', 'Yes. Sine rule and law of sines both mean a / sin A = b / sin B = c / sin C: each side divided by the sine of its opposite angle gives the same value. That value is the diameter of the circle through the three vertices.', '/learn/law-of-sines/', 'Read the law of sines guide'),
+  ],
+  'herons-formula-calculator': [
+    q('What is Heron’s formula?', `Heron’s formula finds the area of a triangle from its three sides: Area = √[s(s − a)(s − b)(s − c)], where s = (a + b + c) / 2 is the semiperimeter. For sides 5, 6, and 7: ${heron.steps[1]} ${heron.steps[3]}`, '/learn/herons-formula/', 'Read the Heron’s formula guide'),
+    q('Why does the calculator say my sides cannot make a triangle?', `Try the sides 2, 3, and 6. ${impossible} In Heron’s formula, one of the brackets would then be zero or negative, so there is no area to find.`),
+    q('Do I need the height to use Heron’s formula?', 'No. Heron’s formula needs only the three side lengths. Once you have the area, you can work back to any height: height = 2 × area ÷ base. The calculator shows the height to each side.', '/shapes/triangle/', 'Triangle properties and formulas'),
+  ],
+});

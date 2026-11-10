@@ -1,7 +1,7 @@
 ---
 import DiagramThumb from './DiagramThumb.astro';
 import {catalog} from '../lib/catalog.mjs';
-const featured=['/tools/triangle-playground/','/triangle-solver/','/tools/trig-graphs/','/shapes/','/tools/transformations/','/worksheets/'];
+const featured=['/tools/triangle-playground/','/triangle-solver/','/tools/trig-graphs/','/shapes/','/tools/transformations/','/worksheets/','/tools/law-of-cosines-calculator/','/tools/law-of-sines-calculator/','/tools/herons-formula-calculator/'];
 const tools=featured.map(href=>catalog.find(t=>t.href===href)).map(t=>({...t,text:t.description,color:t.category==='Trigonometry'?'blue':t.category==='Practice'?'peach':''}));
 ---
 <div class="tool-grid">{tools.map(t=><a class="tool-card" data-category={t.category} href={t.href}><div class="card-top"><span class="badge">{t.category}</span><span class="card-arrow" aria-hidden="true">↗</span></div><div class="card-diagram"><DiagramThumb kind={t.href}/></div><h3>{t.title}</h3><p>{t.text}</p><div class="card-meta"><span>{t.meta}</span><span>Free tool</span></div></a>)}</div>
