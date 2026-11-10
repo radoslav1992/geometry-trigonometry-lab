@@ -32,6 +32,7 @@ export const transformationRules=[
  {group:'Reflection',name:'Reflect over the y-axis',rule:'(x, y) → (−x, y)',apply:([x,y])=>[-x,y]},
  {group:'Reflection',name:'Reflect over y = x',rule:'(x, y) → (y, x)',apply:([x,y])=>[y,x]},
  {group:'Reflection',name:'Reflect over y = −x',rule:'(x, y) → (−y, −x)',apply:([x,y])=>[-y,-x]},
+ {group:'Reflection',name:'Reflect over the origin (point reflection)',rule:'(x, y) → (−x, −y)',example:'same as a 180° rotation',apply:([x,y])=>[-x,-y]},
  {group:'Reflection',name:'Reflect over the line x = h',rule:'(x, y) → (2h − x, y)',example:'h = 2',apply:([x,y])=>[4-x,y]},
  {group:'Reflection',name:'Reflect over the line y = k',rule:'(x, y) → (x, 2k − y)',example:'k = 2',apply:([x,y])=>[x,4-y]},
  {group:'Rotation',name:'Rotate 90° counterclockwise',rule:'(x, y) → (−y, x)',apply:([x,y])=>[-y,x]},
@@ -40,7 +41,8 @@ export const transformationRules=[
  {group:'Dilation',name:'Dilate by k from the origin',rule:'(x, y) → (kx, ky)',example:'k = 2',apply:([x,y])=>[2*x,2*y]},
 ];
 // Search titles and descriptions for the explorer pages. Kept apart from the tool definitions so
-// the browser bundle only carries what the interactive labs need.
+// the browser bundle only carries what the interactive labs need. Optional `h1` and `intro` replace
+// the tool title and card description at the top of the tool page.
 export const toolSeo={
  'right-triangle':{title:'Pythagorean Theorem Calculator: Hypotenuse & Legs',description:'Find the hypotenuse or a missing leg of a right triangle with a² + b² = c². See the triangle drawn to scale, its area, both acute angles, and every step.'},
  'polygon-explorer':{title:'Regular Polygon Calculator: Angles, Area & Diagonals',description:'Enter the number of sides and side length to find each interior and exterior angle, the angle sum, diagonals, apothem, perimeter, and area of a regular polygon.'},
@@ -48,6 +50,6 @@ export const toolSeo={
  'circle-sectors':{title:'Arc Length & Sector Area Calculator With Steps',description:'Enter a radius and a central angle in degrees to find the arc length, sector area, chord length, and fraction of the circle, with the radian working shown.'},
  'angle-converter':{title:'Degrees to Radians Converter (and Turns)',description:'Convert degrees to radians, radians to degrees, or either to turns. See the coterminal angle, its quadrant, and the conversion steps on a live circle diagram.'},
  'trig-graphs':{title:'Sine & Cosine Graph Explorer: Amplitude & Period',description:'Change the amplitude, period, phase shift, and vertical shift of y = A sin(B(x − h)) + k and watch the graph respond, with its midline and range.'},
- 'transformations':{title:'Transformations Tool: Translate, Rotate & Reflect',description:'Translate, rotate, reflect, or dilate a triangle on the coordinate plane. See every new vertex, compare areas, and use the coordinate rules table for each move.'},
- 'triangle-playground':{title:'Triangle Sandbox: Drag Vertices, Area & Centroid',description:'Drag three vertices to discover triangle types, angles, area, perimeter, and the centroid. Then try to build a right, isosceles, or 24-unit² triangle.'},
+ 'transformations':{title:'Transformations Online Tool: Translate, Rotate & Reflect',description:'Free interactive transformation tool for geometry: translate, rotate, reflect, or dilate a triangle on the coordinate plane and see the rule for each move.',h1:'Transformation playground: interactive geometry tool',intro:'A free online tool that works as a transformation simulator for geometry class. Translate, rotate, reflect, or scale (dilate) a triangle on the coordinate plane, then compare its coordinates and area before and after.'},
+ 'triangle-playground':{title:'Triangle Sandbox: Drag Vertices, Area & Centroid',description:'A free geometry sandbox for triangles: drag three vertices to see the type, angles, area, perimeter, and centroid, then try the build challenges.',intro:'A free, interactive geometry sandbox for triangles. Drag three vertices to discover triangle types, angles, area, perimeter, and the centroid, then try the discovery challenges.'},
 };

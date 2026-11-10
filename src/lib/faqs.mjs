@@ -34,6 +34,7 @@ export const faqs = {
   ],
   'learn/transformations': [
     q('What are the rules for reflecting over the x-axis and y-axis?', 'Reflecting over the x-axis keeps x and changes the sign of y: (x, y) → (x, −y). Reflecting over the y-axis changes the sign of x: (x, y) → (−x, y). For example, (3, 1) becomes (3, −1) or (−3, 1).', '/tools/transformations/', 'Try a reflection'),
+    q('What is the formula for a reflection over the origin?', 'A reflection over (through) the origin changes the sign of both coordinates: (x, y) → (−x, −y). For example, (3, 1) becomes (−3, −1). It gives the same image as a 180° rotation about the origin.'),
     q('What is the rule for a 90° rotation?', 'A 90° counterclockwise rotation about the origin maps (x, y) → (−y, x). A 90° clockwise rotation, which equals 270° counterclockwise, maps (x, y) → (y, −x). A 180° rotation maps (x, y) → (−x, −y).'),
     q('What are translations, reflections, and rotations called?', 'They are rigid transformations, also called isometries or congruence transformations. Each one keeps lengths, angles, and area, so the image is congruent to the original. A dilation is not rigid because it changes size.', '/learn/similarity-and-scale/', 'Compare with dilations'),
     q('Does the order of transformations matter?', 'Often, yes. Translating (2, 5) by (−3, 1) and then reflecting over the y-axis gives (1, 6), but reflecting first and then translating gives (−5, 6). Apply the steps in the order they are written.'),
@@ -64,6 +65,7 @@ export const faqs = {
     q('Why does the solver sometimes show two triangles?', 'In the ambiguous SSA case, the known measurements may fit two different triangles. An acute angle and its supplementary obtuse angle have the same sine. The solver shows both solutions when both satisfy the supplied measurements.', '/learn/law-of-sines/', 'Explore the ambiguous case'),
   ],
   'unit-circle': [
+    q('What are the tangent values on the unit circle?', 'In the first quadrant, tan 0° = 0, tan 30° = √3/3, tan 45° = 1, and tan 60° = √3; tan 90° is undefined. The other quadrants repeat these values with a sign: tangent is positive in quadrants I and III and negative in quadrants II and IV, and it is undefined again at 270°.', '#unit-circle-chart', 'See the full chart and table'),
     q('Where is tangent on the unit circle?', 'Tangent is the ratio of the coordinates: tan θ = sin θ / cos θ = y / x. Geometrically, extend the radius until it meets the vertical line x = 1; the height of that meeting point is tan θ. That is why tangent grows without bound near 90°.', '#unit-circle-chart', 'See tangent for every special angle'),
     q('How does the unit circle show sine and cosine?', 'A unit circle has radius 1. Measure an angle counterclockwise from the positive x-axis: the point on the circle has coordinates (cos θ, sin θ). Its horizontal coordinate is cosine and its vertical coordinate is sine.', '/learn/trigonometric-ratios/', 'Connect the trigonometric ratios'),
     q('Why is tangent undefined at 90° and 270°?', 'Tangent is sin θ divided by cos θ. At 90° and 270°, cosine is zero, so the ratio would divide by zero. The explorer displays “undefined” at those angles.', '/tools/trig-graphs/', 'Explore sine and cosine graphs'),
@@ -104,6 +106,7 @@ export const faqs = {
     q('How do phase shift and vertical shift move the graph?', 'In y = A sin(B(x − h)) + k, a positive h moves the graph right and a negative h moves it left. The value k moves the midline to y = k. Here, horizontal values and phase shift are measured in radians.', '/learn/trig-graph-transformations/', 'See graph transformation examples'),
   ],
   transformations: [
+    q('What can I do with this online transformation tool?', 'Translate a triangle by any horizontal and vertical amount, rotate it about the origin, reflect it over the x-axis or y-axis, or scale it from the origin. The tool shows the new coordinates of every vertex, the area before and after, and the steps used.', '/learn/transformations/', 'See every transformation rule'),
     q('Which transformations keep a triangle the same size?', 'Translations, rotations, and reflections preserve lengths, angles, and area. A dilation changes lengths by its scale factor while preserving angles. In this playground, rotations and dilations are centered at the origin.', '/learn/transformations/', 'Learn the transformation rules'),
     q('Why does doubling a shape’s size quadruple its area?', 'A dilation by a positive factor k multiplies each length by k, so area is multiplied by k². Doubling every length makes the area four times as large; halving every length makes it one quarter as large.', '/learn/similarity-and-scale/', 'Explore similarity and scale'),
   ],
