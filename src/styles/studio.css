@@ -368,6 +368,10 @@ to{transform:scale(1);opacity:1}
 .net-card{display:flex;flex-direction:column;padding:20px;border:1px solid var(--line);border-radius:20px;background:#fff}
 .net-card img{width:100%;height:auto;aspect-ratio:190/250;background:#fff;border:1px solid #e8eded;border-radius:12px}
 .net-card h3{margin:16px 0 6px}
+.net-card h3 a:hover{color:var(--green)}
+.net-list{margin:0;padding-left:20px}
+.net-list li{margin:0 0 6px;line-height:1.6}
+.net-links{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:12px;font-size:15px}
 .net-card p{font-size:15px;color:var(--muted);margin:0 0 14px}
 .net-card .net-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
 .net-card .net-actions a,.net-card .net-actions button{display:inline-flex;align-items:center;min-height:44px;padding:10px 15px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:600;color:var(--ink)}
@@ -384,6 +388,8 @@ to{transform:scale(1);opacity:1}
 @media(max-width:600px){.rules-section{padding:22px 16px}.rules-table td,.rules-table th{padding:10px 7px}.rules-table .rule-formula{font-size:15px}.variable-list div{grid-template-columns:1fr;gap:4px}.worked-example{padding:18px}.rule-formula{white-space:normal}.lesson-lead{font-size:17px!important}.composite-row{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.guide-grid{grid-template-columns:1fr}}
 @media print{.explanation#unit-circle-chart{display:block!important}.lesson-calculator,.net-gallery{display:none}.worked-example{box-shadow:none;break-inside:avoid}}
+/* Nets print at true size: the page padding above would otherwise shrink the 190 mm drawing to about 92%. */
+@media print{main:has(net-lab){padding:0}net-lab .workbench{border:0;overflow:visible}.net-paper svg{width:190mm!important;height:250mm!important;max-width:none}}
 .fact-table th[scope=row]{background:none;font-weight:600;width:42%;vertical-align:top}
 .shape-page>h2{margin:40px 0 18px}
 .shape-reference-grid h2{font-size:23px}
