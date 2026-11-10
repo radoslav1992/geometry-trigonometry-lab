@@ -1,0 +1,80 @@
+# Geometry Lab
+
+> Free interactive geometry and trigonometry tools and calculators for students and teachers: a triangle solver, the unit circle, transformations, area and volume calculators and printable nets, with lessons, practice questions, printable activities and teacher answer keys. Everything runs in the browser with no account. From the makers of Interactive Periodic Table.
+
+## Tools
+
+- [Area & Perimeter Calculator for Shapes & Composite Figures](https://geometrylab.net/area-calculator/): Find the area and perimeter of rectangles, circles, triangles, and trapezoids with diagrams and steps, or add and subtract parts for a composite shape.
+- [Printable Nets of 3D Shapes: Cube, Prism & Pyramid (Free)](https://geometrylab.net/printable-nets/): Free printable nets of 3D shapes: cube, rectangular prism, and square pyramid. Set the size, add glue tabs and labels, then print at 100% or save an SVG.
+- [Free Geometry Calculators & Trigonometry Tools](https://geometrylab.net/tools/): Free visual geometry calculators: triangle solver, unit circle, area and volume, sectors, transformations, polygons, graphs, quizzes, and printable worksheets.
+- [Triangle Solver With Steps: SSS, SAS, AAS & SSA](https://geometrylab.net/triangle-solver/): Solve any triangle from three known sides or angles. See it drawn to scale with every angle, the area, perimeter, and worked steps, including both SSA answers.
+- [Unit Circle With Tangent: Labeled Chart of Sin, Cos & Tan](https://geometrylab.net/unit-circle/): Complete labeled unit circle with tangent: sin, cos and tan for every standard angle in degrees and radians. Printable chart, table and interactive circle.
+- [Volume & Surface Area Calculator: Cylinder, Cone & Sphere](https://geometrylab.net/volume-calculator/): Calculate volume and total surface area for spheres, cylinders, cones, and rectangular prisms with visual diagrams, worked substitutions, and a formula chart.
+- [Degrees to Radians Converter (and Turns)](https://geometrylab.net/tools/angle-converter/): Convert degrees to radians, radians to degrees, or either to turns. See the coterminal angle, its quadrant, and the conversion steps on a live circle diagram.
+- [Arc Length & Sector Area Calculator With Steps](https://geometrylab.net/tools/circle-sectors/): Enter a radius and a central angle in degrees to find the arc length, sector area, chord length, and fraction of the circle, with the radian working shown.
+- [Distance, Midpoint & Slope Calculator (Two Points)](https://geometrylab.net/tools/coordinate-geometry/): Drag two points to find the distance, midpoint, slope, and line equation between them. Each answer shows the formula and the substituted values step by step.
+- [Regular Polygon Calculator: Angles, Area & Diagonals](https://geometrylab.net/tools/polygon-explorer/): Enter the number of sides and side length to find each interior and exterior angle, the angle sum, diagonals, apothem, perimeter, and area of a regular polygon.
+- [Pythagorean Theorem Calculator: Hypotenuse & Legs](https://geometrylab.net/tools/right-triangle/): Find the hypotenuse or a missing leg of a right triangle with a² + b² = c². See the triangle drawn to scale, its area, both acute angles, and every step.
+- [Transformations Online Tool: Translate, Rotate & Reflect](https://geometrylab.net/tools/transformations/): Free interactive transformation tool for geometry: translate, rotate, reflect, or dilate a triangle on the coordinate plane and see the rule for each move.
+- [Triangle Sandbox: Drag Vertices, Area & Centroid](https://geometrylab.net/tools/triangle-playground/): A free geometry sandbox for triangles: drag three vertices to see the type, angles, area, perimeter, and centroid, then try the build challenges.
+- [Sine & Cosine Graph Explorer: Amplitude & Period](https://geometrylab.net/tools/trig-graphs/): Change the amplitude, period, phase shift, and vertical shift of y = A sin(B(x − h)) + k and watch the graph respond, with its midline and range.
+
+## Lessons
+
+- [Geometry & Trigonometry Formulas With Examples](https://geometrylab.net/learn/): Every geometry and trigonometry formula you need: Pythagoras, the laws of sines and cosines, Heron’s formula, sectors, transformations, area, and volume.
+- [Arc Length & Sector Area Formulas: Calculator & Examples](https://geometrylab.net/learn/arcs-and-sectors/): Arc length s = rθ and sector area A = ½r²θ in radians, or (θ/360) × 2πr and (θ/360) × πr² in degrees. Calculator, examples, and angle from arc length.
+- [Area & Perimeter Formulas for Every Shape + Calculator](https://geometrylab.net/learn/area-and-perimeter/): Area and perimeter formulas for squares, rectangles, triangles, circles, trapezoids and more in one chart, with a calculator and step-by-step examples.
+- [Distance & Midpoint Formulas With Examples](https://geometrylab.net/learn/distance-and-midpoint/): Distance = √[(x₂ − x₁)² + (y₂ − y₁)²] and midpoint = ((x₁ + x₂)/2, (y₁ + y₂)/2). See why they work, try the calculator, and follow examples.
+- [Heron’s Formula: Triangle Area Calculator & Worked Examples](https://geometrylab.net/learn/herons-formula/): Heron’s formula finds a triangle’s area from its three sides: A = √[s(s − a)(s − b)(s − c)], where s is the semiperimeter. Calculator, examples & proof.
+- [Law of Cosines Formula (Cosine Rule): Calculator & Examples](https://geometrylab.net/learn/law-of-cosines/): The law of cosines, c² = a² + b² − 2ab cos C, finds a missing side (SAS) or any angle (SSS) of a triangle. Try the calculator and step-by-step examples.
+- [Law of Sines Formula (Sine Rule): Calculator & Examples](https://geometrylab.net/learn/law-of-sines/): The law of sines, a/sin A = b/sin B = c/sin C, solves AAS, ASA and SSA triangles. Find sides and angles, check the ambiguous case, and follow examples.
+- [Polygon Interior Angles Formula & Diagonals](https://geometrylab.net/learn/polygon-angles/): The interior angles of an n-sided polygon add up to (n − 2) × 180°. Find each angle of a regular polygon, exterior angles, and the number of diagonals.
+- [Pythagorean Theorem: Formula, Calculator & Examples](https://geometrylab.net/learn/pythagorean-theorem/): The Pythagorean theorem a² + b² = c² finds a missing side of a right triangle. Use the calculator, see worked examples, and learn when it applies.
+- [Radians to Degrees: Conversion Formula & Chart](https://geometrylab.net/learn/radians-and-degrees/): Convert degrees to radians by multiplying by π/180, and radians to degrees by multiplying by 180/π. Includes a conversion chart, converter and examples.
+- [Similarity & Scale Factor: Length, Area & Volume](https://geometrylab.net/learn/similarity-and-scale/): Scale lengths by k and area scales by k² while volume scales by k³. Learn how similar shapes work, with examples and an interactive dilation tool.
+- [Slope Formula & Line Equations (y = mx + b)](https://geometrylab.net/learn/slope-and-lines/): Find the slope between two points with m = (y₂ − y₁)/(x₂ − x₁), then write the line in slope-intercept or point-slope form. Calculator and examples.
+- [Translation, Reflection & Rotation Rules and Formulas](https://geometrylab.net/learn/transformations/): Translation, reflection and rotation rules as coordinate formulas: x-axis, y-axis, y = x, the origin, and 90°, 180°, 270° turns. With a table and examples.
+- [Centroid of a Triangle: Formula, Medians & Examples](https://geometrylab.net/learn/triangle-centers/): The centroid is where a triangle’s three medians meet: G = ((x₁ + x₂ + x₃)/3, (y₁ + y₂ + y₃)/3). It splits each median 2:1. Drag the vertices to explore.
+- [Sine & Cosine Graphs: Amplitude, Period & Phase Shift](https://geometrylab.net/learn/trig-graph-transformations/): In y = A sin(B(x − h)) + k, |A| is the amplitude, 2π/|B| the period, h the phase shift and k the midline. Explore each parameter with an interactive graph.
+- [Sine, Cosine & Tangent (SOH CAH TOA) Explained](https://geometrylab.net/learn/trigonometric-ratios/): Sine, cosine and tangent compare the sides of a right triangle: SOH CAH TOA. Learn each ratio, see them on the unit circle, and work through examples.
+- [Volume & Surface Area Formulas: Chart, Calculator, Examples](https://geometrylab.net/learn/volume-and-surface-area/): Volume and surface area formulas for cubes, rectangular prisms, cylinders, cones, spheres and pyramids in one chart, with a calculator and worked examples.
+
+## Reference
+
+- [Shape Atlas: Properties & Formulas of 2D & 3D Shapes](https://geometrylab.net/shapes/): Properties and formulas of rectangles, circles, triangles, trapezoids, spheres, cylinders, cones, and rectangular prisms, each with its own calculator.
+- [Circle: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/circle/): Circle formulas in one place: area A = πr², circumference C = 2πr = πd, and diameter d = 2r. Properties of a circle, a calculator, and worked examples.
+- [Cone: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/cone/): A cone has 1 circular face, 1 curved surface, 1 curved edge, and 1 vertex (apex). Volume = ⅓πr²h, surface area = πr(r + ℓ). Calculator & examples.
+- [Rectangular Prism (Cuboid): Properties & Formulas](https://geometrylab.net/shapes/cuboid/): A cuboid and a rectangular prism are the same solid: 6 rectangular faces, 12 edges, 8 vertices. Volume = l × w × h, surface area = 2(lw + lh + wh).
+- [Cylinder: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/cylinder/): A cylinder has 2 circular faces, 1 curved surface, 2 curved edges, and no vertices. Volume = πr²h, surface area = 2πr² + 2πrh. Calculator & examples.
+- [Rectangle: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/rectangle/): A rectangle has four right angles, equal opposite sides, and equal diagonals. Area = w × h, perimeter = 2(w + h), diagonal = √(w² + h²). Calculator & examples.
+- [Sphere: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/sphere/): A sphere has one curved surface and no faces, edges, or vertices. Volume = ⁴⁄₃πr³ and surface area = 4πr². Properties, formulas, a calculator & examples.
+- [Trapezoid: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/trapezoid/): A trapezoid has one pair of parallel sides. Area = ½(a + b)h, perimeter = a + b + c + d, midsegment = (a + b)/2. Properties, isosceles trapezoids & calculator.
+- [Triangle: Properties, Formulas & Interactive Calculator](https://geometrylab.net/shapes/triangle/): A triangle has three sides, three vertices, and angles that add up to 180°. Area = ½bh or Heron’s formula, perimeter = a + b + c. Types, calculator & examples.
+
+## Classroom
+
+- [Geometry & Trigonometry Practice — 100 Questions with Explanations](https://geometrylab.net/practice/): Practice geometry, trigonometry, coordinates, polygons, and solids in eight-question rounds with explanations, mistake review, and focused retries.
+- [Geometry Lab for Teachers: Free Geometry & Trig Tools and Activities](https://geometrylab.net/teachers/): Free interactive geometry and trigonometry tools with printable student activities, answer keys and Common Core connections. No logins; works on Chromebooks.
+- [Printable Geometry & Trigonometry Worksheet Generator](https://geometrylab.net/worksheets/): Build a printable geometry worksheet with 8, 12, or 20 questions and an optional answer key. Choose trigonometry, coordinates, polygons, solids, or a mixed set.
+- [Arc Length & Sector Area Worksheet: Free Printable Activity](https://geometrylab.net/learn/arcs-and-sectors/activity/): Free printable Arc Length & Sector Area worksheet for grades 10–12: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Area & Perimeter Worksheet (With Composite Shapes): Free Printable Activity](https://geometrylab.net/learn/area-and-perimeter/activity/): Free printable Area & Perimeter worksheet for grades 6–8: about 25 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Distance & Midpoint Worksheet: Free Printable Activity](https://geometrylab.net/learn/distance-and-midpoint/activity/): Free printable Distance & Midpoint worksheet for grades 8–10: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Heron’s Formula Worksheet: Free Printable Activity](https://geometrylab.net/learn/herons-formula/activity/): Free printable Heron’s Formula worksheet for grades 9–11: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Law of Sines & Law of Cosines Worksheet: Free Printable Activity](https://geometrylab.net/learn/law-of-cosines/activity/): Free printable Law of Sines & Law of Cosines worksheet for grades 10–12: about 25 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Polygon Angles Worksheet: Free Printable Activity](https://geometrylab.net/learn/polygon-angles/activity/): Free printable Polygon Angles worksheet for grades 7–9: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Pythagorean Theorem Worksheet: Free Printable Activity](https://geometrylab.net/learn/pythagorean-theorem/activity/): Free printable Pythagorean Theorem worksheet for grades 8–10: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Similarity & Scale Factor Worksheet: Free Printable Activity](https://geometrylab.net/learn/similarity-and-scale/activity/): Free printable Similarity & Scale Factor worksheet for grades 7–10: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Transformations Worksheet: Translate, Rotate & Reflect: Free Printable Activity](https://geometrylab.net/learn/transformations/activity/): Free printable Transformations worksheet for grades 8–10: about 25 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Sine & Cosine Graphs Worksheet: Free Printable Activity](https://geometrylab.net/learn/trig-graph-transformations/activity/): Free printable Sine & Cosine Graphs worksheet for grades 10–12: about 25 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Unit Circle Worksheet: Free Printable Activity](https://geometrylab.net/learn/trigonometric-ratios/activity/): Free printable Unit Circle worksheet for grades 10–12: about 20 minutes with a free interactive tool. No sign-up; answer key for teachers.
+- [Volume & Surface Area Worksheet: Free Printable Activity](https://geometrylab.net/learn/volume-and-surface-area/activity/): Free printable Volume & Surface Area worksheet for grades 7–9: about 25 minutes with a free interactive tool. No sign-up; answer key for teachers.
+
+## About
+
+- [About Geometry Lab: How the Calculators Work & Your Data](https://geometrylab.net/about/): About Geometry Lab: how the calculators work and round results, what stays in your browser, how printable nets are sized, and how to report a mistake.
+- [Privacy Policy](https://geometrylab.net/privacy/): How Geometry Lab handles data: no accounts, calculations in your browser, Google Analytics visit statistics, Adsterra advertising, and how to opt out.
+- Contact: info@geometrylab.net
+
+## Optional
+
+- [Interactive Periodic Table](https://interactiveperiodictable.net/), [Astronomy Lab](https://theastronomylab.com/), [Biology Lab](https://thebiologylab.org/), [Earth Science Lab](https://earthsciencelab.org/), [Physics Lab](https://thephysicslab.org/), [KidsCode](https://kidscode.dev/): Sister learning apps from the same makers.
