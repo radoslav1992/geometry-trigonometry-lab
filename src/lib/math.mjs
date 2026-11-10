@@ -29,16 +29,22 @@ export function solveTriangle(mode, values) {
     return [fromSides(z*Math.sin(rad(x))/Math.sin(rad(C)),z*Math.sin(rad(y))/Math.sin(rad(C)),z)];
   }
   if (mode==='ssa') {
-    if(z>=180) throw new Error('Angle A must be less than 180°.');
-    const ratio=y*Math.sin(rad(z))/x;
-    if(ratio>1+1e-12) throw new Error('No triangle exists for these measurements.');
-    const B=deg(Math.asin(Math.abs(ratio-1)<1e-12?1:clamp(ratio,-1,1)));
-    const angles=Math.abs(B-90)<1e-8?[B]:[B,180-B];
-    const out=angles.filter(beta=>z+beta<180-1e-9).map(beta=>fromSides(x,y,x*Math.sin(rad(180-z-beta))/Math.sin(rad(z))));
+    const out=ssaTriangles(x,y,z);
     if(!out.length) throw new Error('No triangle exists for these measurements.');
     return out;
   }
   throw new Error('Choose a supported triangle mode.');
+}
+// The ambiguous case: side a, side b and angle A opposite side a. Returns every triangle that fits:
+// none, one, or two. With two, the first has the acute angle B and the longer side c.
+export function ssaTriangles(a, b, A) {
+  positive([a,b,A]);
+  if(A>=180) throw new Error('Angle A must be less than 180°.');
+  const ratio=b*Math.sin(rad(A))/a;
+  if(ratio>1+1e-12) return [];
+  const B=deg(Math.asin(Math.abs(ratio-1)<1e-12?1:clamp(ratio,-1,1)));
+  const angles=Math.abs(B-90)<1e-8?[B]:[B,180-B];
+  return angles.filter(beta=>A+beta<180-1e-9).map(beta=>fromSides(a,b,a*Math.sin(rad(180-A-beta))/Math.sin(rad(A))));
 }
 export function circleValues(angle) {
   const theta=rad(angle);

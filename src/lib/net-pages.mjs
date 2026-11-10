@@ -49,7 +49,7 @@ export const netPages={
   intro:'A free printable net of a regular tetrahedron, the triangular pyramid with four equal faces: four equilateral triangles that make one large triangle. Set the edge length in millimeters, then print at true size or download the SVG.',
   faceText:'4 equal equilateral triangles',
   fold:['Print the net at 100% and cut along the solid outline, keeping the glue tabs.','Fold the three dashed lines of the middle triangle away from you, so the labels end up on the outside.','Lift the three outer triangles until their tips meet above the middle triangle.','Glue each tab under the edge of the triangle next to it.'],
-  links:[['Triangle: properties & formulas ↗','/shapes/triangle/'],formulas,calculator],
+  links:[['Triangle: properties & formulas ↗','/shapes/triangle/'],formulas,['Heron’s formula calculator: area of one face ↗','/tools/herons-formula-calculator/']],
   note:'A regular tetrahedron is one of the five Platonic solids: every face is the same equilateral triangle and three faces meet at every vertex.'},
  octahedron:{
   title:'Printable Octahedron Net: Free Template to Print and Fold',
@@ -57,7 +57,7 @@ export const netPages={
   intro:'A free printable net of a regular octahedron: eight equilateral triangles, six in a strip with one more on each side. Set the edge length in millimeters, then print at true size or download the SVG.',
   faceText:'8 equal equilateral triangles',
   fold:['Print the net at 100% and cut along the solid outline, keeping the glue tabs.','Fold all seven dashed lines away from you, so the labels end up on the outside.','Bring the two ends of the strip of six triangles together to make a ring, and glue the end tab under the triangle at the other end.','Fold the two remaining triangles over the two openings like lids and glue their tabs inside.'],
-  links:[['Triangle: properties & formulas ↗','/shapes/triangle/'],formulas,calculator],
+  links:[['Triangle: properties & formulas ↗','/shapes/triangle/'],formulas,['Heron’s formula calculator: area of one face ↗','/tools/herons-formula-calculator/']],
   note:'A regular octahedron is one of the five Platonic solids. It looks like two square pyramids joined base to base, and four triangles meet at every vertex.'},
  cylinder:{
   title:'Printable Cylinder Net: Free Template to Print and Fold',

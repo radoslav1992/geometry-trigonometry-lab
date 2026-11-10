@@ -1,6 +1,7 @@
 // Editorial questions are rendered into the page HTML, including collapsed answers.
 import {fmt} from './math.mjs';
 import {NETS,netDetails,netGeometry,coneSectorAngle} from './nets.mjs';
+import {explore} from './explorations.mjs';
 const q = (question, answer, href, label) => ({ question, answer, href, label });
 export const faqs = {
   home: [
@@ -11,20 +12,20 @@ export const faqs = {
     q('Can I use these resources for teaching or practice?', 'Yes. Try an eight-question practice round with explanations, create a worksheet with an optional answer key, or print a shape net to fold. Worksheets can contain 8, 12, or 20 questions.', '/worksheets/', 'Create a worksheet'),
   ],
   'learn/herons-formula': [
-    q('What is s in Heron’s formula?', 'The letter s is the semiperimeter: half of the triangle’s perimeter, s = (a + b + c)/2. For sides 3, 4, and 5, s = 6. It is not a side length, and using the full perimeter instead of s gives the wrong area.', '/triangle-solver/', 'Calculate s and the area'),
+    q('What is s in Heron’s formula?', 'The letter s is the semiperimeter: half of the triangle’s perimeter, s = (a + b + c)/2. For sides 3, 4, and 5, s = 6. It is not a side length, and using the full perimeter instead of s gives the wrong area.', '/tools/herons-formula-calculator/', 'Calculate s and the area'),
     q('When should I use Heron’s formula?', 'Use it when you know all three side lengths but not a height or an angle. If you already know a base and its perpendicular height, A = bh/2 is quicker. If you know two sides and the angle between them, use A = ½ab sin C.', '/learn/area-and-perimeter/', 'Compare area formulas'),
     q('Does Heron’s formula work for right and obtuse triangles?', 'Yes. It works for every valid triangle. For a 3-4-5 right triangle it gives √(6 × 3 × 2 × 1) = 6, which matches ½ × 3 × 4. The sides only need to satisfy the triangle inequality.', '/learn/pythagorean-theorem/', 'Review right triangles'),
     q('Who discovered Heron’s formula?', 'It is named after Heron (or Hero) of Alexandria, who recorded the formula with a proof in his Metrica around the first century AD. Some historians think Archimedes knew it earlier.'),
   ],
   'learn/law-of-cosines': [
     q('When do you use the law of cosines instead of the law of sines?', 'Use the law of cosines for SAS (two sides and the angle between them) and SSS (three sides). Use the law of sines when you know a side and its opposite angle, as in AAS, ASA, or SSA.', '/learn/law-of-sines/', 'Read the law of sines'),
-    q('How do you find an angle with the law of cosines?', 'Rearrange it: cos C = (a² + b² − c²)/(2ab), then take the inverse cosine. For sides 7, 8, and 9, the angle opposite 9 is arccos(32/112) ≈ 73.40°. Find the largest angle first; its cosine shows whether the triangle is obtuse.', '/triangle-solver/', 'Solve an SSS triangle'),
+    q('How do you find an angle with the law of cosines?', 'Rearrange it: cos C = (a² + b² − c²)/(2ab), then take the inverse cosine. For sides 7, 8, and 9, the angle opposite 9 is arccos(32/112) ≈ 73.40°. Find the largest angle first; its cosine shows whether the triangle is obtuse.', '/tools/law-of-cosines-calculator/', 'Find an angle from three sides'),
     q('Is the law of cosines the same as the cosine rule?', 'Yes. “Law of cosines” is common in the United States and “cosine rule” in the United Kingdom and elsewhere. Both name c² = a² + b² − 2ab cos C.'),
     q('How is the law of cosines related to the Pythagorean theorem?', 'When the angle C is 90°, cos C = 0, so the 2ab cos C term disappears and the formula becomes c² = a² + b². The extra term corrects for angles that are not right angles.', '/learn/pythagorean-theorem/', 'Review the Pythagorean theorem'),
   ],
   'learn/law-of-sines': [
     q('What is the law of sines used for?', 'It finds missing sides and angles when you know at least one side together with its opposite angle. Typical cases are two angles and a side (AAS or ASA) and two sides with a non-included angle (SSA).', '/triangle-solver/', 'Open the triangle solver'),
-    q('What is the ambiguous case of the law of sines?', 'In SSA, the known angle may not fix one triangle. Because sin B = sin(180° − B), there can be zero, one, or two valid triangles. Compare the side opposite the known angle with the height h = b sin A to decide.', '/triangle-solver/', 'Explore both SSA solutions'),
+    q('What is the ambiguous case of the law of sines?', 'In SSA, the known angle may not fix one triangle. Because sin B = sin(180° − B), there can be zero, one, or two valid triangles. Compare the side opposite the known angle with the height h = b sin A to decide.', '/tools/law-of-sines-calculator/', 'Check for zero, one, or two triangles'),
     q('How do you find an angle using the law of sines?', 'Rearrange to sin B = b sin A / a, then take the inverse sine. Check whether 180° − B also fits: it does when A + (180° − B) is still less than 180°.'),
     q('Can the law of sines be used on right triangles?', 'Yes. With C = 90°, sin C = 1, so a / sin A = c, which gives sin A = a / c: the familiar opposite-over-hypotenuse definition.', '/learn/trigonometric-ratios/', 'Connect to SOH CAH TOA'),
   ],
@@ -214,5 +215,27 @@ Object.assign(faqs, {
     q('How do I find the angle of the sector in a cone net?', `The curved edge of the sector must be as long as the edge of the base, 2πr. The sector’s radius is the slant height ℓ, so its angle is θ = 360° × r ÷ ℓ. For r = ${fmt(coneR)} mm and ℓ = ${fmt(coneL)} mm, θ = 360° × ${fmt(coneR)} ÷ ${fmt(coneL)} = ${fmt(coneSectorAngle(coneR, coneL))}°.`, '/tools/circle-sectors/', 'Open the arc and sector calculator'),
     q('How is slant height different from the height of a cone?', `Slant height ℓ runs along the side of the cone, from the tip to the edge of the base. The height h runs straight up the middle. They are linked by ℓ² = r² + h². For r = ${fmt(coneR)} mm and ℓ = ${fmt(coneL)} mm, the height is √(${fmt(coneL)}² − ${fmt(coneR)}²) ≈ ${fmt(Math.sqrt(coneL ** 2 - coneR ** 2))} mm.`),
     q('How do I find the surface area of a cone from its net?', `Add the sector and the circle. For this template: ${steps('cone').join('; ')}.`, '/volume-calculator/', 'Check with the calculator'),
+  ],
+});
+
+// Questions for the dedicated triangle calculators. The worked numbers are the calculators' own steps.
+const run=(slug,values,mode)=>{const out=explore(slug,values,mode);return{steps:out.steps,...Object.fromEntries(out.metrics.map(m=>[m.label,m.value]))}};
+const sss=run('law-of-cosines-calculator',{a:7,b:8,c:9},'sss'),two=run('law-of-sines-calculator',{a:7,b:10,A:30},'ssa'),heron=run('herons-formula-calculator',{a:5,b:6,c:7});
+const impossible=(()=>{try{explore('herons-formula-calculator',{a:2,b:3,c:6});return ''}catch(error){return error.message}})();
+Object.assign(faqs, {
+  'law-of-cosines-calculator': [
+    q('When should I use the law of cosines?', 'Use it when you know two sides and the angle between them (SAS) and want the third side, or when you know all three sides (SSS) and want an angle. If you know two angles and a side, use the law of sines instead.', '/tools/law-of-sines-calculator/', 'Open the law of sines calculator'),
+    q('Is the cosine rule the same as the law of cosines?', 'Yes. Cosine rule, cosine law, and law of cosines are three names for the same formula: c² = a² + b² − 2ab cos C. When C is 90°, cos C is 0 and the formula becomes the Pythagorean theorem.', '/learn/law-of-cosines/', 'Read the law of cosines guide'),
+    q('How do I find an angle from three sides?', `Rearrange the formula to cos C = (a² + b² − c²) / (2ab), then take the inverse cosine. For sides 7, 8, and 9: ${sss.steps[1]} ${sss.steps[2]}`, '/learn/law-of-cosines/', 'See more worked examples'),
+  ],
+  'law-of-sines-calculator': [
+    q('When should I use the law of sines?', 'Use it when you know a side together with the angle opposite it, plus one more angle or side: two angles and any side (AAS or ASA), or two sides and an angle opposite one of them (SSA). For two sides and the angle between them, or for three sides, use the law of cosines.', '/tools/law-of-cosines-calculator/', 'Open the law of cosines calculator'),
+    q('What is the ambiguous case of the law of sines?', `With two sides and an angle opposite one of them (SSA), the measurements can fit no triangle, one triangle, or two, because an acute angle and its supplement have the same sine. For a = 7, b = 10, and A = 30°, the height is h = b sin A = ${two['Height h = b sin A']}. Because h < a < b, two triangles fit: B = ${two['Angle B']}, which gives c = ${two['Side c']}.`, '/learn/law-of-sines/', 'Read about the ambiguous case'),
+    q('Is the sine rule the same as the law of sines?', 'Yes. Sine rule and law of sines both mean a / sin A = b / sin B = c / sin C: each side divided by the sine of its opposite angle gives the same value. That value is the diameter of the circle through the three vertices.', '/learn/law-of-sines/', 'Read the law of sines guide'),
+  ],
+  'herons-formula-calculator': [
+    q('What is Heron’s formula?', `Heron’s formula finds the area of a triangle from its three sides: Area = √[s(s − a)(s − b)(s − c)], where s = (a + b + c) / 2 is the semiperimeter. For sides 5, 6, and 7: ${heron.steps[1]} ${heron.steps[3]}`, '/learn/herons-formula/', 'Read the Heron’s formula guide'),
+    q('Why does the calculator say my sides cannot make a triangle?', `Try the sides 2, 3, and 6. ${impossible} In Heron’s formula, one of the brackets would then be zero or negative, so there is no area to find.`),
+    q('Do I need the height to use Heron’s formula?', 'No. Heron’s formula needs only the three side lengths. Once you have the area, you can work back to any height: height = 2 × area ÷ base. The calculator shows the height to each side.', '/shapes/triangle/', 'Triangle properties and formulas'),
   ],
 });

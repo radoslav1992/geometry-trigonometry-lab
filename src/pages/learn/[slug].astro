@@ -32,7 +32,7 @@ const adFirst=Boolean(lesson.forms||lesson.variables);
 </div>
 {lesson.transformRules&&<TransformationRules heading="Translation, reflection and rotation rules: coordinate formulas"/>}
 {adFirst&&<AdSlot type="rectangle"/>}
-{calc&&<section class="lesson-calculator" aria-labelledby="calculator-heading"><div class="article"><div class="eyebrow">Try it with your own numbers</div><h2 id="calculator-heading">{heading} calculator</h2><p>{lesson.calculatorNote||`${lesson.subtitle} Change a value and the diagram, result, and working update together.`}</p></div>
+{calc&&<section class="lesson-calculator" aria-labelledby="calculator-heading"><div class="article"><div class="eyebrow">Try it with your own numbers</div><h2 id="calculator-heading">{heading} calculator</h2><p>{lesson.calculatorNote||`${lesson.subtitle} Change a value and the diagram, result, and working update together.`}</p>{lesson.calculatorLink&&<p><a class="text-link" href={lesson.calculatorLink[1]}>{lesson.calculatorLink[0]} ↗</a></p>}</div>
 {calc.type==='triangle'&&<TriangleSolver initial={calc.mode}/>}{tool&&<Exploration tool={tool}/>}{calc.type==='shape'&&<ShapeCalculator initial={calc.initial}/>}{calc.type==='circle'&&<UnitCircle/>}</section>}
 {!adFirst&&<AdSlot type="rectangle"/>}
 <div class="article"><h2>The idea</h2><p>{lesson.body}</p>

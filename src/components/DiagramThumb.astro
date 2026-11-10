@@ -4,7 +4,7 @@ const key=String(kind);
 const solid=/volume|solids|cuboid|nets/.test(key);
 const wave=/trig-graphs|trig-graph|trigonometric/.test(key);
 const circle=/circle|radian|angle-converter/.test(key);
-const paper=/worksheet|practice|learn|formula/.test(key);
+const paper=/worksheet|practice|learn|formula/.test(key)&&!/calculator/.test(key);
 const coordinate=/coordinate|distance|slope|transform|similarity/.test(key);
 const rect=/rectangle|area-calculator|perimeter/.test(key);
 const cone=/cone/.test(key),cylinder=/cylinder/.test(key);

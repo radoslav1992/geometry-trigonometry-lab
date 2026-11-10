@@ -13,9 +13,10 @@ A complete static Astro website for visual mathematics. All interactive calculat
 - Eight-question practice rounds drawn from 100 questions across geometry, trigonometry, coordinates, polygons, and solids. Includes shuffled answers, worked feedback, mistake review, focused retries, and device-local best scores.
 - Sixteen formula guides and three guided learning paths. Each guide opens with a direct answer and the formula, lists every variant and variable, embeds the matching calculator, and adds worked examples, a derivation where useful, common mistakes, and an FAQ. The transformations guide and tool share a coordinate-rules table.
 - Eight additional interactive explorations: right triangles, regular polygons, coordinate geometry, circle sectors, angle conversion, trig graphs, transformations, and a draggable triangle discovery sandbox.
+- Three single-rule triangle calculators at `/tools/law-of-cosines-calculator/` (SAS to find a side, SSS to find an angle), `/tools/law-of-sines-calculator/` (AAS, ASA, and the ambiguous SSA case, which reports zero, one, or two triangles and draws the swinging side), and `/tools/herons-formula-calculator/` (three sides to area, with the triangle inequality check). Each takes only its own inputs, substitutes the numbers step by step, and draws the triangle to scale. They are entries in `explorations` like the other tools and use the triangle solver’s math (`solveTriangle`, `ssaTriangles`); an entry’s `modeFields` lists which inputs each mode shows and checks. Each calculator links to its formula guide, and the guide links back under its embedded solver (`calculatorLink`) and in its closing strip. They have no worksheet of their own: activities are one per formula guide, and these three guides already have theirs, built on the triangle solver.
 - Eight shape-atlas pages, each opening with faces/edges/vertices (or sides/angles), a properties table, and a formula table, then a dedicated calculator, worked example, common mistake, related shapes, and FAQ.
-- Searchable catalog of all 17 tools and collections.
-- A homepage FAQ and tailored questions beneath all 12 explorers/calculators and eight shape calculators. Answers are prerendered and native disclosure controls work without JavaScript.
+- Searchable catalog of all 20 tools and collections.
+- A homepage FAQ and tailored questions beneath all 15 explorers/calculators, eight shape calculators, and nine net pages. Answers are prerendered and native disclosure controls work without JavaScript.
 - Printable worksheets with 8, 12, or 20 questions and an optional answer key.
 
 ## For teachers
@@ -87,6 +88,7 @@ Every page has a canonical URL on `https://geometrylab.net`, a search-focused ti
 - `src/lib/ads.mjs` and `src/components/AdSlot.astro`: Adsterra unit keys and the lazily loaded ad slot.
 - `src/lib/activities.mjs`: classroom activities, their worksheet steps and questions, and answer-key values computed from the tools' math.
 - `tests/math.test.mjs`: calculation regression tests.
+- `tests/triangle-calculators.test.mjs`: the law of cosines, law of sines, and Heron’s formula calculators against independent formulas and the guides’ worked examples, including every SSA case (none, one right triangle, two, one) and impossible triangles.
 - `tests/activities.test.mjs`: activity completeness, control names that exist in each tool, known standards codes, and answer-key values.
 - `tests/content.test.mjs`: worked-example answers, transformation rules, unit circle values, nets, composite areas, and search metadata.
 - `tests/nets.test.mjs`: net geometry: total net area equals the solid’s surface area, meshes are closed solids with the stated faces, edges and vertices, faces unfold congruent and without overlap, one tab per cut edge, the cone sector angle and arc length, the cylinder’s 2πr rectangle, page fit, and the net pages’ copy.
