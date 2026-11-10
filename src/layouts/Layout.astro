@@ -19,8 +19,8 @@ const org={'@type':'Organization',name:brand,url:home,email:'info@geometrylab.ne
 // Pages such as printable worksheets can pass their own `schema` object instead.
 const schema=pageSchema||(schemaType==='Article'
   ?{'@context':'https://schema.org','@type':['Article','LearningResource'],headline,name:headline,description,url:url.href,mainEntityOfPage:url.href,inLanguage:'en',isAccessibleForFree:true,learningResourceType:'Lesson',educationalLevel:'Middle school, high school',author:org,publisher:org}
-  :schemaType==='CollectionPage'
-    ?{'@context':'https://schema.org','@type':'CollectionPage',name:headline,description,url:url.href,inLanguage:'en',isAccessibleForFree:true,publisher:org}
+  :['CollectionPage','AboutPage','WebPage'].includes(schemaType)
+    ?{'@context':'https://schema.org','@type':schemaType,name:headline,description,url:url.href,inLanguage:'en',isAccessibleForFree:true,publisher:org}
     :{'@context':'https://schema.org','@type':'WebApplication',name:headline,url:url.href,description,applicationCategory:'EducationalApplication',operatingSystem:'Any',browserRequirements:'Requires JavaScript',isAccessibleForFree:true,inLanguage:'en',offers:{'@type':'Offer',price:'0',priceCurrency:'USD'},publisher:org});
 const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alternateName:'Geometry & Trigonometry Lab',url:home,description,inLanguage:'en',publisher:org};
 ---
