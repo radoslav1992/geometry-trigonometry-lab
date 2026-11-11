@@ -39,7 +39,7 @@ const adFirst=Boolean(lesson.forms||lesson.variables);
 {lesson.when&&<><h2>When to use it</h2><ul>{lesson.when.map(item=><li>{item}</li>)}</ul></>}
 {lesson.table&&<><h2>{lesson.table.title}</h2>{lesson.table.intro&&<p>{lesson.table.intro}</p>}<div class="fact-table-wrap"><table class="fact-table"><thead><tr>{lesson.table.head.map(h=><th scope="col">{h}</th>)}</tr></thead><tbody>{lesson.table.rows.map(row=><tr>{row.map(cell=><td>{cell}</td>)}</tr>)}</tbody></table></div></>}
 </div>
-{examples.length>1&&<AdSlot type="native"/>}
+{examples.length>1&&<AdSlot type="rectangle"/>}
 <div class="article"><h2>{examples.length>1?'Worked examples':'Work through an example'}</h2>{examples.map((ex,i)=><section class="worked-example"><h3><span class="example-number">{i+1}</span>{ex.title}</h3><ol>{ex.steps.map(step=><li>{step}</li>)}</ol>{ex.answer&&<p class="example-answer"><strong>Answer:</strong> {ex.answer}</p>}</section>)}
 {lesson.derivation&&<><h2>{lesson.derivation.title}</h2><ol class="derivation">{lesson.derivation.steps.map(step=><li>{step}</li>)}</ol></>}
 <h2>Common mistakes</h2><ul>{(lesson.mistakes||[lesson.pitfall]).map(item=><li>{item}</li>)}</ul>
