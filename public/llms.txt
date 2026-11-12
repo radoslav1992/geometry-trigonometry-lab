@@ -84,7 +84,7 @@
 ## About
 
 - [About Geometry Lab: How the Calculators Work & Your Data](https://geometrylab.net/about/): About Geometry Lab: how the calculators work and round results, what stays in your browser, how printable nets are sized, and how to report a mistake.
-- [Privacy Policy](https://geometrylab.net/privacy/): How Geometry Lab handles data: no accounts, calculations in your browser, Google Analytics visit statistics, Adsterra advertising, and how to opt out.
+- [Privacy Policy](https://geometrylab.net/privacy/): How Geometry Lab handles data: no accounts, calculations in your browser, Google Analytics visit statistics, no ads, and how to opt out.
 - Contact: info@geometrylab.net
 
 ## Optional
