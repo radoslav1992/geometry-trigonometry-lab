@@ -1,9 +1,18 @@
-// Adsterra ad units for geometrylab.net, copied from the Adsterra publisher dashboard.
-// Ads load only on this hostname, so local and preview builds stay ad-free.
+// Adsterra ad units. Ads are switched off: the unit keys are empty, so AdSlot renders nothing (no markup,
+// no script, no requests) and AdFree does not run. The privacy, about and teacher pages say Geometry Lab has
+// no ads: update them before setting keys again (tests/ads.test.mjs fails as a reminder).
+// Ads load only on `domain`, so local and preview builds stay ad-free.
 export const ads = {
   domain: 'geometrylab.net',
   host: 'https://bauval.org',
-  leaderboard: 'ad23b2eb961609cb2cda8fa80ead84a3', // 728×90, wide screens
-  mobile: '05c576bb09101f9ee2d0ea0dfdcc71b2', // 320×50, phones
-  rectangle: 'da5aaf788da5069017a22c02f1cac946', // 300×250
+  leaderboard: '', // 728×90, wide screens
+  mobile: '', // 320×50, phones
+  rectangle: '', // 300×250
 };
+
+// The leaderboard needs both its desktop and phone sizes.
+export const adsEnabled = {
+  leaderboard: Boolean(ads.leaderboard && ads.mobile),
+  rectangle: Boolean(ads.rectangle),
+};
+export const anyAds = Object.values(adsEnabled).some(Boolean);
