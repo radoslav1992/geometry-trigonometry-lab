@@ -14,7 +14,8 @@ const sisterApps = learningApps.filter(app => app.id !== currentApp && app.url);
 const nav=[['Explore','/'],['Tools','/tools/'],['Shapes','/shapes/'],['Practice','/practice/'],['Printables','/printable-nets/'],['Learn','/learn/'],['Teachers','/teachers/']];
 const brand='Geometry Lab';
 // Append the brand only while the whole tag stays within typical search-snippet width.
-const pageTitle=title==='Geometry & Trigonometry Lab'||title.includes(brand)||title.length+brand.length+3>68?title:`${title} | ${brand}`;
+const pageTitle=title==='Geometry & Trigonometry Lab'||title.includes(brand)||title.length+brand.length+3>60?title:`${title} | ${brand}`;
+const ogImage=new URL('/og-image.png',Astro.site).href;
 const home=new URL('/',Astro.site).href;
 const org={'@type':'Organization',name:brand,url:home,email:'info@geometrylab.net'};
 // Pages such as printable worksheets can pass their own `schema` object instead.
@@ -33,7 +34,8 @@ const website={'@context':'https://schema.org','@type':'WebSite',name:brand,alte
   <meta name="description" content={description}/><link rel="canonical" href={url}/>
   <meta name="robots" content={noindex?'noindex,follow':'index,follow,max-image-preview:large'}/>
   <meta name="theme-color" content="#fffaf1"/><meta property="og:site_name" content={brand}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content={schemaType==='Article'?'article':'website'}/><meta property="og:url" content={url}/><meta property="og:locale" content="en_US"/>
-  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/>
+  <meta property="og:image" content={ogImage}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Geometry Lab: free interactive geometry and trigonometry tools"/>
+  <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={ogImage}/>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   {Astro.url.pathname==='/'&&<script type="application/ld+json" set:html={JSON.stringify(website)} />}

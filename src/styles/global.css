@@ -9,3 +9,5 @@
 
 :root{--consent-bg:#fff;--consent-fg:#173c3a;--consent-line:#c9d9d1;--consent-accent:#126b60;--consent-accent-fg:#fff}.footer-link-button{all:unset;cursor:pointer;color:inherit}.footer-link-button:hover{color:var(--green)}.footer-link-button:focus-visible{outline:3px solid #de793f;outline-offset:4px}
 .site-footer div{flex-wrap:wrap;row-gap:10px}.site-footer div a,.site-footer div button{white-space:nowrap}@media(min-width:701px){.site-footer>p{flex:1 0 auto}}
+
+.page-notes{max-width:820px;margin-top:44px}.page-notes h2{margin:30px 0 10px}.page-notes h2:first-child{margin-top:0}.page-notes p{color:var(--muted);line-height:1.65}.page-notes a{color:var(--green);text-decoration:underline}.page-samples{padding-left:22px;display:grid;gap:14px;margin:12px 0 20px}.page-samples h3{font-size:1.02rem;margin:0 0 4px}.page-samples p{margin:0}.page-samples strong{color:var(--ink)}@media print{.page-notes{display:none!important}}
