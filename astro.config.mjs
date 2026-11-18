@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { isIndexable } from './src/lib/indexing.mjs';
 
 export default defineConfig({
   site: 'https://geometrylab.net',
   output: 'static',
   trailingSlash: 'always',
-  // Teacher answer keys are noindex and kept out of the sitemap.
-  integrations: [sitemap({ filter: page => !page.endsWith('/404/') && !page.includes('/teachers/answers/') })],
+  // The sitemap lists only indexable pages: the 404 page, teacher answer keys and printable activities are noindex
+  // (src/lib/indexing.mjs explains why).
+  integrations: [sitemap({ filter: isIndexable })],
 });
