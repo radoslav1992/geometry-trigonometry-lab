@@ -391,6 +391,7 @@ to{transform:scale(1);opacity:1}
 /* Nets print at true size: the page padding above would otherwise shrink the 190 mm drawing to about 92%. */
 @media print{main:has(net-lab){padding:0}net-lab .workbench{border:0;overflow:visible}.net-paper svg{width:190mm!important;height:250mm!important;max-width:none}}
 .fact-table th[scope=row]{background:none;font-weight:600;width:42%;vertical-align:top}
+.learn-section .fact-table a,.learn-section>p a{color:var(--green);text-decoration:underline;text-underline-offset:3px}.learn-section .fact-table th[scope=row]{width:auto;min-width:130px}
 .shape-page>h2{margin:40px 0 18px}
 .shape-reference-grid h2{font-size:23px}
 composite-lab{display:block}
