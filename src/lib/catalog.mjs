@@ -1,10 +1,12 @@
 import {explorations} from './explorations.mjs';
+// Every tool and collection, in the order of the /tools/ hub. `lesson` is the formula guide that explains a tool's
+// method; the hub's "Which tool do you need?" table links each tool to it.
 export const catalog=[
- {title:'Triangle solver',description:'Solve SSS, SAS, AAS, and ambiguous SSA triangles with worked steps.',href:'/triangle-solver/',category:'Geometry',icon:'△',meta:'Four solving modes'},
- {title:'Interactive unit circle',description:'Drag an angle and connect sine, cosine, tangent, and exact values.',href:'/unit-circle/',category:'Trigonometry',icon:'⊙',meta:'Exact values + radians'},
- {title:'Area & perimeter',description:'Measure rectangles, triangles, circles, and trapezoids.',href:'/area-calculator/',category:'Geometry',icon:'▱',meta:'Four plane shapes'},
- {title:'Volume & surface area',description:'Explore spheres, cylinders, cones, and rectangular prisms.',href:'/volume-calculator/',category:'Solids',icon:'▧',meta:'Four solid shapes'},
- ...explorations.map(t=>({title:t.title,description:t.description,href:'/tools/'+t.slug+'/',category:t.category,icon:t.icon,meta:'Visual explanation + steps'})),
+ {title:'Triangle solver',description:'Solve SSS, SAS, AAS, and ambiguous SSA triangles with worked steps.',href:'/triangle-solver/',category:'Geometry',icon:'△',meta:'Four solving modes',lesson:'law-of-sines'},
+ {title:'Interactive unit circle',description:'Drag an angle and connect sine, cosine, tangent, and exact values.',href:'/unit-circle/',category:'Trigonometry',icon:'⊙',meta:'Exact values + radians',lesson:'trigonometric-ratios'},
+ {title:'Area & perimeter',description:'Measure rectangles, triangles, circles, and trapezoids.',href:'/area-calculator/',category:'Geometry',icon:'▱',meta:'Four plane shapes',lesson:'area-and-perimeter'},
+ {title:'Volume & surface area',description:'Explore spheres, cylinders, cones, and rectangular prisms.',href:'/volume-calculator/',category:'Solids',icon:'▧',meta:'Four solid shapes',lesson:'volume-and-surface-area'},
+ ...explorations.map(t=>({title:t.title,description:t.description,href:'/tools/'+t.slug+'/',category:t.category,icon:t.icon,meta:'Visual explanation + steps',lesson:t.lesson})),
  {title:'Shape atlas',description:'Compare the properties, formulas, and uses of familiar shapes.',href:'/shapes/',category:'Reference',icon:'◇',meta:'Eight detailed shape pages'},
  {title:'Printable shape nets',description:'Customize, download, print, and fold nine nets, from a cube and pyramid to a cylinder and cone.',href:'/printable-nets/',category:'Solids',icon:'▧',meta:'SVG + print to PDF'},
  {title:'Worksheet builder',description:'Create a printable practice sheet with an optional answer key.',href:'/worksheets/',category:'Practice',icon:'▤',meta:'8, 12, or 20 questions'},
